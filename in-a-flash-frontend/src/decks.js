@@ -1,9 +1,9 @@
-class DeckAdapter {
+class DecksAdapter {
     constructor() {
         this.baseURL = 'http://localhost:3000/decks'
     }
 
-    getDeck() {
+    getDecks() {
         return fetch(this.baseURL).then(res => res.json())
     }
 }
@@ -30,6 +30,13 @@ class Decks {
 
     bindEventListeners() {
         this.decksContainer = document.getElementById('decks-container')
+        this.deckForm = document.getElementById('new-deck-form')
+        this.deckForm.addEventListener('submit', this.createDeck)
+    }
+
+    createDeck(e) {
+        e.preventDefault()
+        this.deckForm.value
     }
 
     fetchAndLoadDecks() {
