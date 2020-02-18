@@ -5,29 +5,41 @@
     <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
     <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>
     <script type="application/javascript" src="src/decks.js" charset="UTF-8"></script>
-    <title></title>
+    <title>In A Flash</title>
   </head>
+
   <body>
-    <div class="container">
-      <h1 class="text-center">In A Flash <small class="text-muted">a simple flashcard app</small></h1>
+    <div class="container text-center">
+      <h1>In A Flash <small class="text-muted">a simple flashcard app</small></h1>
       <div id="new-deck-container">
         <h3>Create A New Deck</h3>
         <form id="new-deck-form">
           <label for='name'>Name your deck:</label>
-          <input type=text id='name' placeholder="Norwegian 101">
+          <input type=text id='name' placeholder="Norwegian 101" class="form-control">
           <br>
           <label for='category'>Add a category:</label>
-          <input type=text id='category' placeholder="Languages">
+          <input type=text id='category' placeholder="Languages" class="form-control">
           <br>
           <button type="submit" class="btn btn-primary">Create</button>
         </form>
       </div>
+
+      <br><br>
+
+      <h3>Your Decks</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="decks-container">
+
+        </tbody>
+      </table>
       
-      <div id="decks-container">
-        <h3>Your Decks</h3>
-
-      </div>
-
     </div>
     
 

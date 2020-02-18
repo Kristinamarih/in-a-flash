@@ -1,3 +1,11 @@
+class Deck {
+    
+}
+
+
+
+
+
 class DecksAdapter {
     constructor() {
         this.baseURL = 'http://localhost:3000/decks'
