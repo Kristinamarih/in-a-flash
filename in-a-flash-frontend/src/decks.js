@@ -31,7 +31,7 @@ class Decks {
     bindEventListeners() {
         this.decksContainer = document.getElementById('decks-container')
         this.deckForm = document.getElementById('new-deck-form')
-        this.deckForm.addEventListener('submit', this.createDeck)
+        this.deckForm.addEventListener('submit', this.createDeck.bind(this))
     }
 
     createDeck(e) {

@@ -2,26 +2,32 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
     <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>
     <script type="application/javascript" src="src/decks.js" charset="UTF-8"></script>
     <title></title>
   </head>
   <body>
     <div class="container">
-      <h1>In A Flash - Flashcard App</h1>
+      <h1 class="text-center">In A Flash <small class="text-muted">a simple flashcard app</small></h1>
       <div id="new-deck-container">
+        <h3>Create A New Deck</h3>
         <form id="new-deck-form">
-          <input type=text />
-          <input type=text />
-          <input type=submit />
+          <label for='name'>Name your deck:</label>
+          <input type=text id='name' placeholder="Norwegian 101">
+          <br>
+          <label for='category'>Add a category:</label>
+          <input type=text id='category' placeholder="Languages">
+          <br>
+          <button type="submit" class="btn btn-primary">Create</button>
         </form>
       </div>
       
       <div id="decks-container">
+        <h3>Your Decks</h3>
 
       </div>
 
-      </div>
     </div>
     
 
