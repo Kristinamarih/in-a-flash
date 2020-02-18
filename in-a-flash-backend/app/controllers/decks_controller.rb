@@ -19,21 +19,21 @@ class DecksController < ApplicationController
         if deck.save
             render json: deck
         else
-            render: new
+            render json: new
         end
     end
 
     def edit
         deck = Deck.find_by(params["id"])
-        render: edit
+        render json: edit
     end
 
     def update
         deck = Deck.find_by(params["id"])
         if deck.update(deck_params)
-            redirect_ to deck_path(deck)
+            redirect_to deck_path(deck)
         else
-            render: edit
+            render json: edit
         end
     end
 
