@@ -1,106 +1,73 @@
-const newDeckButton = document.getElementsByClassName("btn btn-primary")
-const newDeckForm = document.getElementById('new-deck-form')
-const deckNameInput = newDeckForm.getElementById("name").value
-
-newDeckForm.addEventListener("submit", function(e) {
-    e.preventDefault()
-    deckNameInput.value
-
-    fetch('http://localhost:3000/decks', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json', 
-            Accept: 'application/json'
-        },
-        body: JSON.stringify({
-            name: deckNameInput
-        }),
-    })
-    .then(function() {
-        return res.json()
-    })
-    .then(function(deck) {
-        
-    })
-})
-
-
-newDeckButton.addEventListener("submit", function(e) {
-    fetch('http://localhost:3000/decks')
-    .then(function(res) {
-        return res.json()
-    })
-    .then(function(decks) {
-        const decksList = document.getElementById('decks-list')
-        decks.data.forEach(function(deck) {
-            const newDeckItem = document.createElement('td')
-            newDeckItem.innerHTML = deck.name
-            decksList.appendChild(newDeckItem)
-        })
-    })
-})
-
-
-
-
-class DecksAdapter {
-    constructor() {
-        this.baseURL = 'http://localhost:3000/decks'
-    }
-
-    getDecks() {
-        return fetch(this.baseURL).then(res => res.json())
-    }
-}
-// Deck class: represents a deck
 class Deck {
-    constructor(deckJSON) {
-        this.id = deckJSON.id;
-        this.name = deckJSON.name;
-        this.category = deckJSON.category;
+    constructor(deckData) {
+        this.name = deckData.name
+        this.category = deckData.category
+        Deck.allDecks.push(this)
+    }
+
+    static findDeck(id) {
+        return this.allDecks.find((deck) => deck.id === id)
+    }
+
+    renderDeck() {
+        return `<td id="${this.id}>${this.name}: ${this.category}</td>`
+    }
+
+    renderDetails() {
+        return `<h2>${this.name}</h2>
+               <p>${this.card.term}</p>
+               <button type="button" id="next-card" class="btn btn-outline-primary">Submit</button>
+               `
     }
 }
 
-class Decks {
-    constructor() {
-        this.decks = []
-        this.adapter = new DecksAdapter()
-        this.bindEventListeners()
-        this.fetchAndLoadDecks()
-    }
+Deck.allDecks = []
 
-    bindEventListeners() {
-        this.decksList = document.getElementById('decks-list')
-        this.newDeckName = document.getElementById('name')
-        this.newDeckCategory = document.getElementById('category')
-        this.deckForm = document.getElementById('new-deck-form')
-        this.deckForm.addEventListener('submit', this.createDeck.bind(this))
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    const deckList = document.querySelector('#decks-list')
+    const deckInfo = document.querySelector('#deck-info')
+    const deckFormSubmit = document.querySelector('#submit-button')
+    const deckNameInput = document.querySelector('#name')
+    const deckCategoryInput = document.querySelector('#category')
 
-    createDeck(e) {
+    fetch('http://localhost:3000/decks')
+    .then(resp => resp.json())
+    .then((deckDataJSON) => {
+        deckDataJSON.forEach((deck) => {
+            const newDeck = new Deck(deck)
+            deckList.innerHTML += newDeck.renderDeck()
+        })
+    })
+
+    deckList.addEventListener('click', (e) => {
+        const clickedDeck = parseInt(e.target.dataset.id)
+        const foundDeck = Deck.findDeck(clickedDeck)
+        deckInfo.innerHTML = foundDeck.renderDetails()
+    })
+    
+    deckFormSubmit.addEventListener('click', (e) => {
         e.preventDefault()
-        const nameValue = this.newDeckName.value
-        const categoryValue = this.newDeckCategory.value
-        this.adapter.createDeck(nameValue, categoryValue).then(deck => {
-            this.decks.push(new Deck(deck))
-            this.newDeckName.value = ''
-            this.newDeckCategory.value = ''
-            this.render()
+        deckNameInput.value
+        deckCategoryInput.value
+    
+        fetch('http://localhost:3000/decks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', 
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({
+                name: deckNameInput,
+                category: deckCategoryInput
+            }),
         })
-    }
-
-    fetchAndLoadDecks() {
-        this.adapter
-        .getDecks()
-        .then(decks => {
-            decks.forEach(deck => this.decks.push(new Deck(deck)))
+        .then(function() {
+            return res.json()
         })
-        .then(() => {
-            this.render()
+        .then(function(deck) {
+            const newDeckItem = new Deck(deck)
+            newDeckItem.renderDeck()
         })
-    }
-
-    render() {
-        this.decksList.innerHTML = this.decks.map(deck => deck.renderLi().join(''))
-    }
-}
+    })
+    
+})

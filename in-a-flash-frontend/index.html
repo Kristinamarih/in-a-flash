@@ -3,16 +3,17 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
-    <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>
-    <script type="application/javascript" src="src/decks.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="src/index.js"></script>
+    <script type="text/javascript" src="src/decks.js"></script>
     <title>In A Flash</title>
   </head>
 
   <body>
     <div class="container text-center">
       <h1>In A Flash <small class="text-muted">a simple flashcard app</small></h1>
+
       <div id="new-deck-container">
-        
+
         <h3>Create A New Deck</h3>
         <form id="new-deck-form">
           <label for='name'>Name your deck:</label>
@@ -21,7 +22,7 @@
           <label for='category'>Add a category:</label>
           <input type=text id='category' placeholder="Languages" class="form-control">
           <br>
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="submit" id="submit-button" class="btn btn-primary">Create</button>
         </form>
       </div>
 
