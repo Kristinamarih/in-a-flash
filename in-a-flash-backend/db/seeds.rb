@@ -7,4 +7,3 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Deck.create(name: 'Norsk101', category: 'Languages')
-
