@@ -2,7 +2,7 @@ class DecksController < ApplicationController
 
     def index
         @decks = Deck.all
-        serialized_data = DeckSerializer.new(@decks).serialized_json
+        serialized_data = DeckSerializer.new(@decks)
         render json: serialized_data
     end
 
