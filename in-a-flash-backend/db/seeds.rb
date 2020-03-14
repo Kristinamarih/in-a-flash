@@ -6,5 +6,5 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-deck1 = Deck.create(name: 'Norsk101', category: 'Languages')
-deck2 = Deck.create(name: 'JavaScript101', category: 'Web development')
+Deck.create(name: 'Norsk101', category: 'Languages')
+Deck.create(name: 'JavaScript101', category: 'Web development')

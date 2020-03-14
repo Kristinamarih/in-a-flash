@@ -24,17 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch('http://localhost:3000/decks', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json', 
-                // Accept: 'application/json'
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
             },
             body: JSON.stringify({
                 name: deckNameInput,
                 category: deckCategoryInput
             }),
         })
-        .then(function() {
-            return res.json()
-        })
+        .then((res) => res.json())
         .then(function(deck) {
             const newDeckItem = new Deck(deck)
             newDeckItem.renderDeck()
