@@ -18,7 +18,7 @@ class DecksController < ApplicationController
     def create
         @deck = Deck.new(deck_params)
         if @deck.save
-            render json: @deck
+            render json: DeckSerializer.new(@deck)
         else
             render json: new
         end
@@ -47,7 +47,7 @@ class DecksController < ApplicationController
     private
     
     def deck_params
-        params.permit(:name, :category)
+        params.require(:deck).permit(:name, :category)
     end
 
 end
