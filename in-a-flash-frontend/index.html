@@ -17,10 +17,10 @@
         <h3>Create A New Deck</h3>
         <form id="new-deck-form">
           <label for='name'>Name your deck:</label>
-          <input type=text id='name' placeholder="Norwegian 101" class="form-control">
+          <input type=text name='deck[name]' id='name-field' placeholder="Norwegian 101" class="form-control">
           <br>
           <label for='category'>Add a category:</label>
-          <input type=text id='category' placeholder="Languages" class="form-control">
+          <input type=text name='deck[category]' id='category-field' placeholder="Languages" class="form-control">
           <br>
           <button type="submit" id="submit-button" class="btn btn-primary">Create</button>
         </form>

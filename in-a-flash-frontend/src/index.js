@@ -1,17 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const app = new App();
+    app.attachEventListeners();
+    
     let deckData = []
     const deckList = document.querySelector('#decks-list')
     const deckInfo = document.querySelector('#deck-info')
     const deckForm = document.querySelector('#new-deck-form')
-    const deckNameInput = document.querySelector('#name')
-    const deckCategoryInput = document.querySelector('#category')
+    const deckNameInput = document.querySelector('#name-field')
+    const deckCategoryInput = document.querySelector('#category-field')
 
     fetch('http://localhost:3000/decks')
     .then(resp => resp.json())
     .then((deckDataJSON) => {
-        deckData = deckDataJSON
+        // deckData = deckDataJSON
         deckDataJSON.forEach((deck) => {
-            const newDeck = new Deck(deck)
+        const newDeck = new Deck(deck)
             deckList.innerHTML += newDeck.renderDeck();
         })
     })
