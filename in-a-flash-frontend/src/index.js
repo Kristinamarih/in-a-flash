@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     deckForm.addEventListener('submit', (e) => {
         e.preventDefault()
-        deckNameInput.value
-        deckCategoryInput.value
+        // deckNameInput.value
+        // deckCategoryInput.value
     
         fetch('http://localhost:3000/decks', {
             method: 'POST',
@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 Accept: 'application/json'
             },
             body: JSON.stringify({
-                name: deckNameInput,
-                category: deckCategoryInput
+                name: deckNameInput.value,
+                category: deckCategoryInput.value
             }),
         })
         .then((res) => res.json())
