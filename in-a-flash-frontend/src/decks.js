@@ -11,8 +11,8 @@ class Deck {
     }
 
     renderDeck() {
-        return `<tr><td>${this.name}: ${this.category}</td><tr>
-        <button type="button" id="select-deck" class="btn btn-outline-primary">Select</button>`
+        return `<tr><td>${this.name}</td><td>${this.category}</td>
+        <td><button type="button" id="select-deck" class="btn btn-outline-primary">Select</button></td></tr>`
     }
 
     renderDetails() {

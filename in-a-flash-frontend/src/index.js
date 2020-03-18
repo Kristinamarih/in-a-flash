@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Accept: 'application/json'
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
                 deck: {
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then((res) => res.json())
         .then(function(deck) {
-            const newDeckItem = new Deck(deck)
+            const newDeckItem = new Deck(deck.data.attributes)
             deckList.innerHTML += newDeckItem.renderDeck()
         })
     })
