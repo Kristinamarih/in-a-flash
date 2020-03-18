@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(resp => resp.json())
     .then((deckDataJSON) => {
         deckData = deckDataJSON.data
-        // debugger
         deckData.forEach((deck) => {
         const newDeck = new Deck(deck.attributes)
             deckList.innerHTML += newDeck.renderDeck();
@@ -22,8 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     deckForm.addEventListener('submit', (e) => {
         e.preventDefault()
-        // deckNameInput.value
-        // deckCategoryInput.value
     
         fetch('http://localhost:3000/decks', {
             method: 'POST',
@@ -45,9 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
 
-    deckList.addEventListener('click', (e) => {
-        const clickedDeck = parseInt(e.target.dataset.id)
-        const foundDeck = deckData.findDeck(clickedDeck)
-        deckInfo.innerHTML = foundDeck.renderDetails()
-    }) 
+    // deckList.addEventListener('click', (e) => {
+    //     const clickedDeck = parseInt(e.target.dataset.id)
+    //     const foundDeck = deckData.findDeck(clickedDeck)
+    //     deckInfo.innerHTML = foundDeck.renderDetails()
+    // }) 
 })

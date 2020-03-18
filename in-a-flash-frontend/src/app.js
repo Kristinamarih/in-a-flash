@@ -3,7 +3,9 @@ class App {
       document.querySelector('#decks-list').addEventListener('click', e => {
         const id = parseInt(e.target.dataset.id);
         const deck = Deck.findDeck(id);
-        deck.renderDetails;
+        debugger
+        const deckInfo = document.querySelector('#deck-info')
+        deckInfo.innerHTML += deck.renderDetails;
       });
     }
   }

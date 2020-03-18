@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
     <script type="text/javascript" src="src/index.js"></script>
     <script type="text/javascript" src="src/decks.js"></script>
+    <script type="text/javascript" src="src/deck.js"></script>
     <script type="text/javascript" src="src/app.js"></script>
     <title>In A Flash</title>
   </head>
@@ -40,6 +41,26 @@
         </thead>
         <tbody id="decks-list"></tbody>
       </table>
+
+      <div class="modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Deck</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p id="deck-info"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
       
     </div>
   </body>

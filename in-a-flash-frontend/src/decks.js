@@ -7,7 +7,7 @@ class Deck {
     }
 
     static findDeck(id) {
-        return this.Deck.all.find((deck) => deck.id === id)
+        return this.all.find((deck) => deck.id === id);
     }
 
     renderDeck() {
