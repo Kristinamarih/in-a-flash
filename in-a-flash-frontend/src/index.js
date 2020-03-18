@@ -12,9 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('http://localhost:3000/decks')
     .then(resp => resp.json())
     .then((deckDataJSON) => {
-        // deckData = deckDataJSON
-        deckDataJSON.forEach((deck) => {
-        const newDeck = new Deck(deck)
+        deckData = deckDataJSON.data
+        // debugger
+        deckData.forEach((deck) => {
+        const newDeck = new Deck(deck.attributes)
             deckList.innerHTML += newDeck.renderDeck();
         })
     })
