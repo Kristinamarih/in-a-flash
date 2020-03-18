@@ -31,14 +31,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 Accept: 'application/json'
             },
             body: JSON.stringify({
+                deck: {
                 name: deckNameInput.value,
                 category: deckCategoryInput.value
+                }
             }),
         })
         .then((res) => res.json())
         .then(function(deck) {
             const newDeckItem = new Deck(deck)
-            newDeckItem.renderDeck()
+            deckList.innerHTML += newDeckItem.renderDeck()
         })
     })
 
