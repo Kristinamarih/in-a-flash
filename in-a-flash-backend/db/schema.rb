@@ -27,10 +27,8 @@ ActiveRecord::Schema.define(version: 202000217124000) do
   create_table "decks", force: :cascade do |t|
     t.string "name"
     t.string "category"
-    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_decks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -41,5 +39,4 @@ ActiveRecord::Schema.define(version: 202000217124000) do
   end
 
   add_foreign_key "cards", "decks"
-  add_foreign_key "decks", "users"
 end

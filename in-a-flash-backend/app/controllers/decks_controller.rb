@@ -17,6 +17,7 @@ class DecksController < ApplicationController
 
     def create
         @deck = Deck.new(deck_params)
+        # byebug
         if @deck.save
             render json: DeckSerializer.new(@deck)
         else
