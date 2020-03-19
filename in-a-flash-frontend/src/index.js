@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let deckData = []
     const deckList = document.querySelector('#decks-list')
+    const deckDelete = document.querySelector('#delete-deck')
     // const deckInfo = document.querySelector('#deck-info')
     const deckForm = document.querySelector('#new-deck-form')
     const deckNameInput = document.querySelector('#name-field')
@@ -37,8 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then((res) => res.json())
         .then(function(deck) {
-            const newDeckItem = new Deck(deck.data)
+            const newDeckItem = new Deck(deck.attributes)
             deckList.innerHTML += newDeckItem.renderDeck()
+        })
+    })
+
+    deckDelete.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        fetch('http://localhost:3000/decks', {
+            method: 'DELETE'
         })
     })
 
