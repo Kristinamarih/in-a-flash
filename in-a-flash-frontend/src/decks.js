@@ -12,7 +12,7 @@ class Deck {
 
     renderDeck() {
         return `<tr><td>${this.name}</td><td>${this.category}</td>
-        <td><button type="button" id="select-deck" class="btn btn-outline-primary">Select</button></td></tr>`
+        <td><button data-id=${this.id} type="button" id="select-deck" class="btn btn-outline-primary">Select</button></td></tr>`
     }
 
     renderDetails() {

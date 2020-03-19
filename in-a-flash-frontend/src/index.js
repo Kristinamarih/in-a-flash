@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let deckData = []
     const deckList = document.querySelector('#decks-list')
-    const deckInfo = document.querySelector('#deck-info')
+    // const deckInfo = document.querySelector('#deck-info')
     const deckForm = document.querySelector('#new-deck-form')
     const deckNameInput = document.querySelector('#name-field')
     const deckCategoryInput = document.querySelector('#category-field')
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then((res) => res.json())
         .then(function(deck) {
-            const newDeckItem = new Deck(deck.data.attributes)
+            const newDeckItem = new Deck(deck.data)
             deckList.innerHTML += newDeckItem.renderDeck()
         })
     })
