@@ -1,13 +1,13 @@
 class Deck {
-    constructor(deckData) {
-        this.id = deckData.id;
-        this.name = deckData.name;
-        this.category = deckData.category;
+    constructor(data) {
+        this.id = data.id;
+        this.name = data.name;
+        this.category = data.category;
         Deck.all.push(this);
     }
 
     static findDeck(id) {
-        return this.all.find((deck) => deck.id === id);
+        return this.all.find(deck => deck.id === id);
     }
 
     renderDeck() {

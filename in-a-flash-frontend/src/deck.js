@@ -1,11 +1,11 @@
 // Get modal
-var modal = document.getElementsByClassName("modal");
+let modal = document.getElementsByClassName("modal");
 
 // Get button that opens modal
-var btn = document.getElementById("select-deck");
+let btn = document.querySelectorAll("#select-deck");
 
 // Get element that closes modal
-var closebtn = document.getElementsByClassName("close");
+let closebtn = document.getElementsByClassName("close");
 
 // When user clicks on button, open the modal
 btn.onclick = function() {
