@@ -18,10 +18,12 @@ class Deck {
 
     renderDetails() {
         return `<h2>${this.name}</h2>
-            //    <p>${this.card.term}</p>
+               
                <button type="button" id="next-card" class="btn btn-outline-primary">Submit</button>
                `
     }
 }
 
 Deck.all = []
+
+{/* <p>${this.card.term}</p> */}

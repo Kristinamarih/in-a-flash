@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let deckData = []
     const deckList = document.querySelector('#decks-list')
-    const deckDelete = document.querySelector('#delete-deck')
+    const deckDelete = document.querySelectorAll('#delete-deck')
     // const deckInfo = document.querySelector('#deck-info')
     const deckForm = document.querySelector('#new-deck-form')
     const deckNameInput = document.querySelector('#name-field')
@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((deckDataJSON) => {
         deckData = deckDataJSON.data
         deckData.forEach((deck) => {
-            // debugger
         const newDeck = new Deck(deck.id, deck.attributes.name, deck.attributes.category)
             deckList.innerHTML += newDeck.renderDeck();
         })
@@ -39,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then((res) => res.json())
         .then(function(deck) {
-            // debugger
             const newDeckItem = new Deck(deck.attributes)
             deckList.innerHTML += newDeckItem.renderDeck()
         })
@@ -52,10 +50,4 @@ document.addEventListener('DOMContentLoaded', () => {
     //         method: 'DELETE'
     //     })
     // })
-
-    // deckList.addEventListener('click', (e) => {
-    //     const clickedDeck = parseInt(e.target.dataset.id)
-    //     const foundDeck = deckData.findDeck(clickedDeck)
-    //     deckInfo.innerHTML = foundDeck.renderDetails()
-    // }) 
 })
