@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((deckDataJSON) => {
         deckData = deckDataJSON.data
         deckData.forEach((deck) => {
-        const newDeck = new Deck(deck.attributes)
+            // debugger
+        const newDeck = new Deck(deck.id, deck.attributes.name, deck.attributes.category)
             deckList.innerHTML += newDeck.renderDeck();
         })
     })
@@ -38,18 +39,19 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then((res) => res.json())
         .then(function(deck) {
+            // debugger
             const newDeckItem = new Deck(deck.attributes)
             deckList.innerHTML += newDeckItem.renderDeck()
         })
     })
 
-    deckDelete.addEventListener('click', (e) => {
-        e.preventDefault()
+    // deckDelete.addEventListener('click', (e) => {
+    //     e.preventDefault()
 
-        fetch('http://localhost:3000/decks', {
-            method: 'DELETE'
-        })
-    })
+    //     fetch('http://localhost:3000/decks', {
+    //         method: 'DELETE'
+    //     })
+    // })
 
     // deckList.addEventListener('click', (e) => {
     //     const clickedDeck = parseInt(e.target.dataset.id)

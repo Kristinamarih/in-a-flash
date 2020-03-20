@@ -1,13 +1,13 @@
 class Deck {
-    constructor(data) {
-        this.id = data.id;
-        this.name = data.name;
-        this.category = data.category;
+    constructor(id, name, category) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
         Deck.all.push(this);
     }
 
     static findDeck(id) {
-        return this.all.find(deck => deck.id === id);
+        return this.all.find(deck => deck.id == id);
     }
 
     renderDeck() {
@@ -18,7 +18,7 @@ class Deck {
 
     renderDetails() {
         return `<h2>${this.name}</h2>
-               <p>${this.card.term}</p>
+            //    <p>${this.card.term}</p>
                <button type="button" id="next-card" class="btn btn-outline-primary">Submit</button>
                `
     }
