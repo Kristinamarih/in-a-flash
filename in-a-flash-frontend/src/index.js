@@ -4,9 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let deckData = []
     const deckList = document.querySelector('#decks-list')
-    const deckDelete = document.querySelectorAll('#delete-deck')
-    // const deckInfo = document.querySelector('#deck-info')
+    const deckDelete = document.querySelector('#delete-deck')
     const deckForm = document.querySelector('#new-deck-form')
+    const cardForm = document.querySelector('#new-card-form')
+    const cardTermInput = document.querySelector('#term-field')
+    const cardDescriptionInput = document.querySelector('#description-field')
+    const cardDetails = document.querySelector("#card-details")
     const deckNameInput = document.querySelector('#name-field')
     const deckCategoryInput = document.querySelector('#category-field')
 
@@ -20,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
 
-    deckForm.addEventListener('submit', (e) => {
-        e.preventDefault()
+    deckForm.addEventListener('submit', e => {
+        e.preventDefault();
     
         fetch('http://localhost:3000/decks', {
             method: 'POST',
@@ -40,14 +43,36 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(function(deck) {
             const newDeckItem = new Deck(deck.attributes)
             deckList.innerHTML += newDeckItem.renderDeck()
+        });
+    });
+
+    cardForm.addEventListener('submit', e => {
+        e.preventDefault();
+
+        fetch(`http://localhost:3000/decks/${this.deck.id}/cards`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                card: {
+                    term: cardTermInput.value,
+                    description: cardDescriptionInput.value
+                }
+            }),
         })
-    })
+        .then((res) => res.json())
+        .then(function(card) {
+            const newCardItem = new Card(card.attributes)
+            cardDetails.innerHTML += newCardItem
+        });
+    });
 
     // deckDelete.addEventListener('click', (e) => {
-    //     e.preventDefault()
 
     //     fetch('http://localhost:3000/decks', {
     //         method: 'DELETE'
-    //     })
-    // })
+    //     });
+    // });
 })

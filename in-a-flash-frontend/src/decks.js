@@ -19,8 +19,7 @@ class Deck {
     renderDetails() {
         return `<h2>${this.name}</h2>
                
-               <button type="button" id="next-card" class="btn btn-outline-primary">Submit</button>
-               `
+               <button type="button" id="next-card" class="btn btn-outline-primary">Next card</button>`
     }
 }
 

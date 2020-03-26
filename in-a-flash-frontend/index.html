@@ -48,7 +48,21 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">Deck</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <div id="new-cards-container">
+                <h3>Create New Cards</h3>
+                <form action="http://localhost:3000/decks" id="new-card-form">
+                  <label for='term'>Term:</label>
+                  <input type=text name='deck[card][term]' id='term-field' placeholder="Sjokolade" class="form-control">
+                  <br>
+                  <label for='description'>Description:</label>
+                  <input type=text name='deck[card][description]' id='description-field' placeholder="Chocolate" class="form-control">
+                  <br>
+                  <button type="submit" id="submit-button" class="btn btn-primary">Save</button>
+                </form>
+              </div>
+              <h3>Card:</h3>
+              <p id="card-details"></p>
+              <button type="button" id="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -57,12 +71,10 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary">Save</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
       </div>
-      
     </div>
   </body>
 </html>
