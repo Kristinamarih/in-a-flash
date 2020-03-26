@@ -56,9 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                card: {
-                    term: cardTermInput.value,
-                    description: cardDescriptionInput.value
+                deck: {
+                    card: {
+                        term: cardTermInput.value,
+                        description: cardDescriptionInput.value
+                    }
                 }
             }),
         })
