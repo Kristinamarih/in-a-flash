@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cardForm.addEventListener('submit', e => {
         e.preventDefault();
 
-        fetch(`http://localhost:3000/decks/${this.deck.id}/cards`, {
+        fetch(`http://localhost:3000/decks/${deck.id}/cards`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
