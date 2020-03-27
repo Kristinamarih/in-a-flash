@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const app = new App();
-    app.attachEventListeners();
     
     let deckData = []
     const deckList = document.querySelector('#decks-list')
@@ -23,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
             deckList.innerHTML += newDeck.renderDeck();
         });
     });
+
+    const app = new App();
+    app.attachEventListeners();
 
     deckForm.addEventListener('submit', e => {
         e.preventDefault();

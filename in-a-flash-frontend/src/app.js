@@ -1,28 +1,25 @@
 class App {
     attachEventListeners() {
       document.querySelector('#decks-list').addEventListener('click', e => {
-        const id = parseInt(e.target.dataset.id);
-        const deck = Deck.findDeck(id);
-        const deckInfo = document.querySelector('#deck-info');
-        // let newDeck = new Deck(deck.id, deck.name, deck.category);
-        // newDeck.renderDetails();
-        deckInfo.innerHTML += deck.renderDetails();
-
-        let modal = document.querySelector(".modal");
-        let btn = e.target;
-        let closebtn = document.querySelector("#close");
+        if (e.target.className == "btn btn-outline-primary deck-buttons") {
+          const id = parseInt(e.target.id.split("-")[2]);
+          const foundDeck = Deck.findDeck(id);
+          const deckInfo = document.querySelector('#deck-info');
+          deckInfo.innerHTML = foundDeck.renderDetails();
     
-        btn.onclick = function() {
+          let modal = document.querySelector(".modal");
+          let closebtn = document.querySelector("#close");
+        
           modal.style.display = "block";
-        }
-        
-        closebtn.onclick = function() {
-          modal.style.display = "none";
-        }
-        
-        window.onclick = function(e) {
-          if (e.target == modal) {
+            
+          closebtn.onclick = function() {
             modal.style.display = "none";
+          }
+            
+          window.onclick = function(e) {
+            if (e.target == modal) {
+              modal.style.display = "none";
+            };
           };
         };
       });
