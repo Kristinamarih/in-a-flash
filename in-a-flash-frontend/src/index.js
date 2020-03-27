@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
         deckData.forEach((deck) => {
         const newDeck = new Deck(deck.id, deck.attributes.name, deck.attributes.category)
             deckList.innerHTML += newDeck.renderDeck();
-        })
-    })
+        });
+    });
 
     deckForm.addEventListener('submit', e => {
         e.preventDefault();
@@ -46,30 +46,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    cardForm.addEventListener('submit', e => {
-        e.preventDefault();
+    if (cardForm) {
+        addEventListener('submit', e => {
+            e.preventDefault();
 
-        fetch(`http://localhost:3000/decks/${deck.id}/cards`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                deck: {
-                    card: {
-                        term: cardTermInput.value,
-                        description: cardDescriptionInput.value
+            fetch(`http://localhost:3000/decks/${deck.id}/cards`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    deck: {
+                        card: {
+                            term: cardTermInput.value,
+                            description: cardDescriptionInput.value
+                        }
                     }
-                }
-            }),
-        })
-        .then((res) => res.json())
-        .then(function(card) {
-            const newCardItem = new Card(card.attributes)
-            cardDetails.innerHTML += newCardItem
+                }),
+            })
+            .then((res) => res.json())
+            .then(function(card) {
+                const newCardItem = new Card(card.attributes)
+                cardDetails.innerHTML += newCardItem
+            });
         });
-    });
+    }
 
     // deckDelete.addEventListener('click', (e) => {
 

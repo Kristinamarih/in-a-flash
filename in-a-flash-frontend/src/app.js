@@ -9,11 +9,9 @@ class App {
         deckInfo.innerHTML += deck.renderDetails();
 
         let modal = document.querySelector(".modal");
-    
-        // document.querySelector('#decks-list').addEventListener("click", e => {
         let btn = e.target;
         let closebtn = document.querySelector("#close");
-        
+    
         btn.onclick = function() {
           modal.style.display = "block";
         }
@@ -22,12 +20,11 @@ class App {
           modal.style.display = "none";
         }
         
-        window.onclick = function(event) {
-          if (event.target == modal) {
+        window.onclick = function(e) {
+          if (e.target == modal) {
             modal.style.display = "none";
           };
         };
       });
-      // });
     };
   }
