@@ -12,13 +12,12 @@ class Deck {
 
     renderDeck() {
         return `<tr><td>${this.name}</td><td>${this.category}</td>
-        <td><button data-id=${this.id} type="button" id="select-deck-${this.id}" class="btn btn-outline-primary">Select</button></td>
+        <td><button data-id=${this.id} type="button" id="select-deck" class="btn btn-outline-primary">Select</button></td>
         <td><button data-id=${this.id} type="button" id="delete-deck" class="btn btn-outline-primary">Delete</button></td></tr>`
     }
 
     renderDetails() {
         return `<h2>${this.name}</h2>
-        
                <div id="new-cards-container">
                 <h5>Create New Cards</h5>
                 <form action="http://localhost:3000/decks/${this.id}/cards" id="new-card-form">

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let deckData = []
     const deckList = document.querySelector('#decks-list')
+    const openDeck = document.querySelector('#select-deck')
     const deckDelete = document.querySelector('#delete-deck')
     const deckForm = document.querySelector('#new-deck-form')
     const cardForm = document.querySelector('#new-card-form')
@@ -73,10 +74,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // deckDelete.addEventListener('click', (e) => {
+    if (deckDelete) {
+        addEventListener('click', (e) => {
+            const id = parseInt(e.target.data-id);
 
-    //     fetch('http://localhost:3000/decks', {
-    //         method: 'DELETE'
-    //     });
-    // });
+            fetch(`http://localhost:3000/decks/${id}`, {
+                method: 'DELETE'
+            }).then(res => res.json());
+        });
+    };
 })
