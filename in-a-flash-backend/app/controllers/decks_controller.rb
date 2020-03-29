@@ -39,7 +39,7 @@ class DecksController < ApplicationController
     end
 
     def destroy
-        @deck = Deck.find_by(params["id"])
+        @deck = Deck.find_by(params[:id])
         @deck.delete
         redirect_to deck_path
     end
