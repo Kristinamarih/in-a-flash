@@ -4,17 +4,17 @@ class Deck {
         this.name = name;
         this.category = category;
         Deck.all.push(this);
-    }
+    };
 
     static findDeck(id) {
         return this.all.find(deck => deck.id == id);
-    }
+    };
 
     renderDeck() {
         return `<tr><td>${this.name}</td><td>${this.category}</td>
         <td><button data-id=${this.id} type="button" id="select-deck-${this.id}" class="btn btn-outline-primary deck-buttons">Select</button></td>
-        <td><button data-id=${this.id} type="button" id="delete-deck" class="btn btn-outline-primary">Delete</button></td></tr>`
-    }
+        <td><button data-id=${this.id} type="button" id="delete-deck-${this.id}" class="btn btn-outline-primary delete-buttons">Delete</button></td></tr>`
+    };
 
     renderDetails() {
         return `<h2>${this.name}</h2>
@@ -30,7 +30,9 @@ class Deck {
                   <button type="submit" id="submit-button" class="btn btn-primary">Save</button>
                 </form>
               </div>`
-    }
+    };
 }
 
 Deck.all = []
+
+

@@ -1,8 +1,9 @@
 class App {
+
     attachEventListeners() {
       document.querySelector('#decks-list').addEventListener('click', e => {
         if (e.target.className == "btn btn-outline-primary deck-buttons") {
-          const id = parseInt(e.target.id.split("-")[2]);
+          let id = parseInt(e.target.id.split("-")[2]);
           const foundDeck = Deck.findDeck(id);
           const deckInfo = document.querySelector('#deck-info');
           deckInfo.innerHTML = foundDeck.renderDetails();
@@ -21,7 +22,16 @@ class App {
               modal.style.display = "none";
             };
           };
+        }
+
+        else if (e.target.className == "btn btn-outline-primary delete-buttons") {
+          let id = parseInt(e.target.id.split("-")[2]);
+          fetch(`http://localhost:3000/decks/${id}`, { method: 'DELETE' })
+          .then(res => res.json())
+      
         };
       });
     };
   }
+
+
