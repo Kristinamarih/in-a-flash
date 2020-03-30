@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     deckForm.addEventListener('submit', e => {
         e.preventDefault();
-    
         fetch('http://localhost:3000/decks', {
             method: 'POST',
             headers: {
@@ -49,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cardForm) {
         addEventListener('submit', e => {
             e.preventDefault();
-
             fetch(`http://localhost:3000/decks/${deck.id}/cards`, {
                 method: 'POST',
                 headers: {
