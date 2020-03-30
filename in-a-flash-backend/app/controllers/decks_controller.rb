@@ -39,15 +39,15 @@ class DecksController < ApplicationController
     end
 
     def destroy
-        @deck = Deck.find_by(params[:id])
-        @deck.delete
-        redirect_to deck_path
+        @deck = Deck.find_by(id: params[:id])
+        @deck.destroy
+        redirect_to decks_path
     end
 
     private
     
     def deck_params
-        params.require(:deck).permit(:name, :category, :cards_attributes [ :id, :term, :description ])
+        params.require(:deck).permit(:name, :category)
     end
 
 end
