@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let deckData = []
     const deckList = document.querySelector('#decks-list');
-    const deckDelete = document.querySelector('#delete-deck');
     const deckForm = document.querySelector('#new-deck-form');
     const cardForm = document.querySelector('#new-card-form');
     const cardTermInput = document.querySelector('#term-field');
@@ -69,18 +68,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 cardDetails.innerHTML = newCardItem.renderCard()
             });
         });
-    }
-
-    // if (deckDelete) {
-    //     addEventListener('click', (e) => {
-    //         let id = parseInt(e.target.data-id);
-
-    //         fetch(`http://localhost:3000/decks/${id}`, { method: 'DELETE' })
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             console.log('Deleted:', res.message)
-    //             return res
-    //         });
-    //     });
-    // };
+    };
 })
