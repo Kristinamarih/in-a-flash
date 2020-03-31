@@ -2,7 +2,8 @@ class CardsController < ApplicationController
 
     def index
         @cards = Card.all 
-        render json: @cards
+        serialized_data = CardSerializer.new(@cards)
+        render json: serialized_data
     end
 
     def show
@@ -17,7 +18,7 @@ class CardsController < ApplicationController
     def create
         @card = Card.new(card_params)
         if @card.save
-            render json: @card
+            redirect_to deck_card(@card)
         else
             render json: new
         end
@@ -46,7 +47,7 @@ class CardsController < ApplicationController
     private
     
     def card_params
-        params.require(:card).require(:term, :description)
+        params.require(:card).require(:term, :description, :deck_id)
     end
 
 end

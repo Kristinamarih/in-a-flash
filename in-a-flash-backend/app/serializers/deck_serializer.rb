@@ -1,4 +1,5 @@
 class DeckSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name, :category
+  attributes :id, :name, :category
+  has_many :cards
 end
