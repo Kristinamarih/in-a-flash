@@ -3,7 +3,7 @@ class Card {
         this.id = id;
         this.term = term;
         this.description = description;
-        Card.call.push(this);
+        Card.all.push(this);
     };
 
     static findCard(id) {

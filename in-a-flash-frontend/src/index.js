@@ -13,14 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const deckCategoryInput = document.querySelector('#category-field');
 
     fetch('http://localhost:3000/decks')
-    .then(resp => resp.json())
-    .then((deckDataJSON) => {
-        deckData = deckDataJSON.data
-        deckData.forEach((deck) => {
-        const newDeck = new Deck(deck.id, deck.attributes.name, deck.attributes.category)
-            deckList.innerHTML += newDeck.renderDeck();
-        });
-    });
+        .then(resp => resp.json())
+        .then((deckDataJSON) => {
+            deckData = deckDataJSON.data
+            deckData.forEach((deck) => {
+            const newDeck = new Deck(deck.id, deck.attributes.name, deck.attributes.category)
+                deckList.innerHTML += newDeck.renderDeck();
+            });
+         });
 
     deckForm.addEventListener('submit', e => {
         e.preventDefault();
@@ -66,6 +66,16 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(function(card) {
                 const newCardItem = new Card(card.attributes)
                 cardDetails.innerHTML = newCardItem.renderCard()
+            });
+        });
+        
+        fetch(`http://localhost:3000/decks/${deck.id}/cards`)
+        .then(resp => resp.json())
+        .then((cardDataJSON) => {
+            cardData = cardDataJSON.data
+            cardData.forEach((card) => {
+                const newCard = new Card(card.id, card.term, card.description)
+                cardDetails.innerHTML = newCard.renderCard();
             });
         });
     };
