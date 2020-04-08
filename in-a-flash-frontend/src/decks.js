@@ -1,8 +1,9 @@
 class Deck {
-    constructor(id, name, category) {
+    constructor(id, name, category, cards=null) {
         this.id = id;
         this.name = name;
         this.category = category;
+        this.cards = cards;
         Deck.all.push(this);
     };
 
@@ -32,6 +33,18 @@ class Deck {
               </div>`
     };
 }
+
+// Deck.prototype.postHTML = function() {
+//     let deckCards = this.cards.map(card => {
+//         `<div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+//                     <div class="card-header">Card</div>
+//                     <div class="card-body">
+//                         <h4 class="card-title">${this.term}</h4>
+//                         <p class="card-text">${this.description}</p>
+//                     </div>
+//                 </div>`
+//     });
+// }
 
 Deck.all = []
 

@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const app = new App();
     app.attachEventListeners();
+
+    
     
     let deckData = []
     const deckList = document.querySelector('#decks-list');
@@ -11,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardDetails = document.querySelector("#card-details");
     const deckNameInput = document.querySelector('#name-field');
     const deckCategoryInput = document.querySelector('#category-field');
+
+    cardForm.addEventListener('submit', e => postFetch(cardForm))
 
     fetch('http://localhost:3000/decks')
         .then(resp => resp.json())
@@ -44,39 +48,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    if (cardForm) {
-        addEventListener('submit', e => {
-            e.preventDefault();
-            fetch(`http://localhost:3000/decks/${deck.id}/cards`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    deck: {
-                        card: {
-                            term: cardTermInput.value,
-                            description: cardDescriptionInput.value
-                        }
+    
+    
+        // fetch(`http://localhost:3000/decks/${deck.id}/cards`)
+        // .then(resp => resp.json())
+        // .then((cardDataJSON) => {
+        //     cardData = cardDataJSON.data
+        //     cardData.forEach((card) => {
+        //         const newCard = new Card(card.id, card.term, card.description)
+        //         cardDetails.innerHTML = newCard.renderCard();
+        //     });
+        // });
+});
+
+function postFetch(cardForm) {
+if (cardForm) {
+        e.preventDefault();
+        debugger
+        fetch(`http://localhost:3000/decks/${deck.id}/cards`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                deck: {
+                    card: {
+                        term: cardTermInput.value,
+                        description: cardDescriptionInput.value
                     }
-                }),
-            })
-            .then((res) => res.json())
-            .then(function(card) {
-                const newCardItem = new Card(card.attributes)
-                cardDetails.innerHTML = newCardItem.renderCard()
-            });
-        });
-        
-        fetch(`http://localhost:3000/decks/${deck.id}/cards`)
-        .then(resp => resp.json())
-        .then((cardDataJSON) => {
-            cardData = cardDataJSON.data
-            cardData.forEach((card) => {
-                const newCard = new Card(card.id, card.term, card.description)
-                cardDetails.innerHTML = newCard.renderCard();
-            });
+                }
+            }),
+        })
+        .then((res) => res.json())
+        .then(function(card) {
+            const newCardItem = new Card(card.attributes)
+            cardDetails.innerHTML = newCardItem.renderCard()
         });
     };
-})
+}
