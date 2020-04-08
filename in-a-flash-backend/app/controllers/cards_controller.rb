@@ -8,20 +8,14 @@ class CardsController < ApplicationController
 
     def show
         @card = Card.find_by(id: params[:id])
+        @deck = Deck.find(params[:deck_id])
         render json: @card
     end
 
-    def new
-        @card = Card.new
-    end
-
     def create
-        @card = Card.new(card_params)
-        if @card.save
-            redirect_to deck_card(@card)
-        else
-            render json: new
-        end
+        byebug
+        # @deck = Deck.find(params[:deck_id])
+        # @card = @deck.cards.create(card_params)
     end
 
     def edit
