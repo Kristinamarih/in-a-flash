@@ -21,7 +21,7 @@ class Deck {
         return `<h2>${this.name}</h2>
                <div id="new-cards-container">
                 <h5>Create New Cards</h5>
-                <form action="http://localhost:3000/decks/${this.id}/cards" id="new-card-form">
+                <form id="new-card-form">
                   <label for='term'>Term:</label>
                   <input type=text name='deck[card][term]' id='term-field' placeholder="Sjokolade" class="form-control">
                   <br>
