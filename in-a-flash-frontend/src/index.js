@@ -57,13 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // });
 });
 
-function postFetch(cardForm) {
+function postCardFetch(cardForm) {
     const cardTermInput = document.querySelector('#term-field');
     const cardDescriptionInput = document.querySelector('#description-field');
     const cardDetails = document.querySelector("#card-details");
-    if (cardForm) {
+    
+    cardForm.addEventListener("submit", e => {
             e.preventDefault();
-            debugger
             fetch(`http://localhost:3000/decks/${deck.id}/cards`, {
                 method: 'POST',
                 headers: {
@@ -84,5 +84,5 @@ function postFetch(cardForm) {
                 const newCardItem = new Card(card.attributes)
                 cardDetails.innerHTML = newCardItem.renderCard()
             });
-        };
+        });
 }
