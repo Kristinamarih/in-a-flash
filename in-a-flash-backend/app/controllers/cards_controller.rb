@@ -13,7 +13,13 @@ class CardsController < ApplicationController
     end
 
     def create
-        byebug
+        # byebug
+        @card = Card.new(card_params)
+        if @card.save
+            render json: CardSerializer.new(@card)
+        else
+            render json: @card
+        end
         # @deck = Deck.find(params[:deck_id])
         # @card = @deck.cards.create(card_params)
     end
@@ -41,7 +47,7 @@ class CardsController < ApplicationController
     private
     
     def card_params
-        params.require(:card).require(:term, :description, :deck_id)
+        params.require(:card).permit(:term, :description, :deck_id)
     end
 
 end
