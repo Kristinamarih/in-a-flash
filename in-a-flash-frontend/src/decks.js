@@ -32,8 +32,50 @@ class Deck {
                 </form>
               </div>`
     };
-}
 
+    postCardFetch() {
+      const cardTermInput = document.querySelector('#term-field');
+      const cardDescriptionInput = document.querySelector('#description-field');
+      const cardDetails = document.querySelector("#card-details");
+      const cardForm = document.querySelector('#new-card-form');
+	
+      cardForm.addEventListener('submit', e => {
+          e.preventDefault();
+          fetch(`http://localhost:3000/decks/${this.id}/cards`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    card: {
+                        term: cardTermInput.value,
+                        description: cardDescriptionInput.value
+                    }
+                }),
+            })
+            .then((res) => res.json())
+            .then(function(card) {
+                const newCardItem = new Card(card.attributes)
+                cardDetails.innerHTML = newCardItem.renderCard()
+            });
+        });
+    };
+
+    fetchCards() {
+        fetch(`http://localhost:3000/decks/${this.id}/cards`)
+        .then(resp => resp.json())
+        .then((cardDataJSON) => {
+            cardData = cardDataJSON.data
+            cardData.forEach((card) => {
+                const newCard = new Card(card.id, card.term, card.description)
+                cardDetails.innerHTML = newCard.renderCard();
+            });
+        });
+    };
+}
+    
+            
 // Deck.prototype.postHTML = function() {
 //     let deckCards = this.cards.map(card => {
 //         `<div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
@@ -47,5 +89,3 @@ class Deck {
 // }
 
 Deck.all = []
-
-
