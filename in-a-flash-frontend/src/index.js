@@ -5,14 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let deckData = []
     const deckList = document.querySelector('#decks-list');
     const deckForm = document.querySelector('#new-deck-form');
-    const cardForm = document.querySelector('#new-card-form');
     
     const deckNameInput = document.querySelector('#name-field');
     const deckCategoryInput = document.querySelector('#category-field');
 
-    if (cardForm) {
-    cardForm.addEventListener('submit', e => postFetch(cardForm))
-    };
+    // if (cardForm) {
+    // cardForm.addEventListener('submit', e => postCardFetch())
+    // };
 
     fetch('http://localhost:3000/decks')
         .then(resp => resp.json())
@@ -57,7 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // });
 });
 
-function postCardFetch(cardForm) {
+function postCardFetch() {
+    const cardForm = document.querySelector('#new-card-form');
     const cardTermInput = document.querySelector('#term-field');
     const cardDescriptionInput = document.querySelector('#description-field');
     const cardDetails = document.querySelector("#card-details");
