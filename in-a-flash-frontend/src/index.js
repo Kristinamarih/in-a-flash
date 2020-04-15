@@ -39,4 +39,27 @@ document.addEventListener('DOMContentLoaded', () => {
             deckList.innerHTML += newDeckItem.renderDeck()
         });
     });
+
+    deckList.addEventListener('click', e => {
+        e.preventDefault();
+        if (e.target.className == "btn btn-outline-primary deck-buttons") {
+            let id = parseInt(e.target.id.split("-")[2]);
+            let deck = Deck.findDeck(id);
+            const cardDetails = document.querySelector("#card-details");
+
+        fetch(`http://localhost:3000/decks/${deck.id}/cards`)
+        .then(resp => resp.json())
+        .then((cardDataJSON) => {
+            cardData = cardDataJSON.data
+            cardData.forEach((card) => {
+                fetch(`http://localhost:3000/decks/${deck.id}/cards/${card.id}`)
+                .then(resp => resp.json())
+                .then((card) => {
+                    const newCard = new Card(card.id, card.term, card.description)
+                    cardDetails.innerHTML = newCard.renderCard();
+                });
+            });
+        });
+        };
+    });
 });

@@ -60,19 +60,7 @@ class Deck {
                 cardDetails.innerHTML = newCardItem.renderCard()
             });
         });
-    };
-
-    fetchCards() {
-        fetch(`http://localhost:3000/decks/${this.id}/cards`)
-        .then(resp => resp.json())
-        .then((cardDataJSON) => {
-            cardData = cardDataJSON.data
-            cardData.forEach((card) => {
-                const newCard = new Card(card.id, card.term, card.description)
-                cardDetails.innerHTML = newCard.renderCard();
-            });
-        });
-    };
+    }; 
 }
     
             
