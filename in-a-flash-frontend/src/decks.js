@@ -34,33 +34,42 @@ class Deck {
     };
 
     postCardFetch() {
-      const cardTermInput = document.querySelector('#term-field');
-      const cardDescriptionInput = document.querySelector('#description-field');
-      const cardDetails = document.querySelector("#card-details");
-      const cardForm = document.querySelector('#new-card-form');
+        const cardTermInput = document.querySelector('#term-field');
+        const cardDescriptionInput = document.querySelector('#description-field');
+        const cardDetails = document.querySelector("#card-details");
+        const cardForm = document.querySelector('#new-card-form');
 	
-      cardForm.addEventListener('submit', e => {
-          e.preventDefault();
-          fetch(`http://localhost:3000/decks/${this.id}/cards`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    card: {
-                        term: cardTermInput.value,
-                        description: cardDescriptionInput.value
-                    }
-                }),
-            })
-            .then((res) => res.json())
-            .then(function(card) {
-                const newCardItem = new Card(card.attributes)
-                cardDetails.innerHTML = newCardItem.renderCard()
+        cardForm.addEventListener('submit', e => {
+            e.preventDefault();
+            fetch(`http://localhost:3000/decks/${this.id}/cards`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        card: {
+                            term: cardTermInput.value,
+                            description: cardDescriptionInput.value
+                        }
+                    }),
+                })
+                .then((res) => res.json())
+                .then(function(card) {
+                    const newCardItem = new Card(card.attributes)
+                    cardDetails.innerHTML = newCardItem.renderCard()
+                });
             });
-        });
     }; 
+
+    nextCard() {
+        const nextCard = document.querySelector('#next-card');
+
+        nextCard.addEventListener('click', e => {
+            e.preventDefault();
+            console.log('click!')
+        })
+    }
 }
     
             

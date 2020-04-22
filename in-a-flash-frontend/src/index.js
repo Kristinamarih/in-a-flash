@@ -48,18 +48,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const cardDetails = document.querySelector("#card-details");
 
         fetch(`http://localhost:3000/decks/${deck.id}/cards`)
-        .then(resp => resp.json())
-        .then((cardDataJSON) => {
-            cardData = cardDataJSON.data
-            cardData.forEach((card) => {
-                fetch(`http://localhost:3000/decks/${deck.id}/cards/${card.id}`)
-                .then(resp => resp.json())
-                .then((card) => {
-                    const newCard = new Card(card.id, card.term, card.description)
-                    cardDetails.innerHTML = newCard.renderCard();
+            .then(resp => resp.json())
+            .then((cardDataJSON) => {
+                cardData = cardDataJSON.data
+                cardData.forEach((card) => {
+                    fetch(`http://localhost:3000/decks/${deck.id}/cards/${card.id}`)
+                    .then(resp => resp.json())
+                    .then((card) => {
+                        const newCard = new Card(card.id, card.term, card.description)
+                        cardDetails.innerHTML = newCard.renderCard();
+                    });
                 });
             });
-        });
         };
     });
 });

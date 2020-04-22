@@ -9,6 +9,7 @@ class App {
           deckInfo.innerHTML = foundDeck.renderDetails();
 
           foundDeck.postCardFetch();
+          foundDeck.nextCard();
     
           let modal = document.querySelector(".modal");
           let closebtn = document.querySelector("#close");
