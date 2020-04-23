@@ -8,6 +8,7 @@ class App {
           const deckInfo = document.querySelector('#deck-info');
           deckInfo.innerHTML = foundDeck.renderDetails();
 
+          foundDeck.fetchCards();
           foundDeck.postCardFetch();
           foundDeck.nextCard();
     

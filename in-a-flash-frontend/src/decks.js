@@ -33,6 +33,23 @@ class Deck {
               </div>`
     };
 
+    fetchCards() {
+        fetch(`http:localhost:3000/decks/${this.id}/cards`)
+        .then(resp => resp.json())
+        .then((cardDataJSON) => {
+            cardData = cardDataJSON.data.attributes
+            debugger
+            cardData.forEach((card) => {
+                fetch(`http://localhost:3000/decks/${this.id}/cards/${card.id}`)
+                .then(resp => resp.json())
+                .then((card) => {
+                    const newCard = new Card(card.id, card.term, card.description)
+                    cardDetails.innerHTML = newCard.renderCard();
+                });
+            });
+        });
+    };
+
     postCardFetch() {
         const cardTermInput = document.querySelector('#term-field');
         const cardDescriptionInput = document.querySelector('#description-field');
@@ -56,18 +73,31 @@ class Deck {
                 })
                 .then((res) => res.json())
                 .then(function(card) {
-                    const newCardItem = new Card(card.attributes)
+                    const newCardItem = new Card(card.id, card.term, card.description)
                     cardDetails.innerHTML = newCardItem.renderCard()
                 });
-            });
+        });
     }; 
 
     nextCard() {
         const nextCard = document.querySelector('#next-card');
+        const cardDetails = document.querySelector('#card-details');
 
         nextCard.addEventListener('click', e => {
             e.preventDefault();
-            console.log('click!')
+            fetch(`http://localhost:3000/decks/${this.id}/cards`)
+            .then(resp => resp.json())
+            .then((cardDataJSON) => {
+                cardData = cardDataJSON.data
+                cardData.forEach((card) => {
+                    fetch(`http://localhost:3000/decks/${this.id}/cards/${card.id}`)
+                    .then(resp => resp.json())
+                    .then((card) => {
+                        const newCard = new Card(card.id, card.term, card.description)
+                        cardDetails.innerHTML = newCard.renderCard();
+                    });
+                });
+            });
         })
     }
 }
