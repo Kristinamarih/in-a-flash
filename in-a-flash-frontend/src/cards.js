@@ -17,6 +17,7 @@ class Card {
                         <h4 class="card-title">${this.term}</h4>
                         <p class="card-text">${this.description}</p>
                     </div>
+                    <button data-id=${this.id} type="button" id="delete-card" class="btn btn-outline-primary">Delete</button>
                 </div>`
     };
 }

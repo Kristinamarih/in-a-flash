@@ -11,6 +11,7 @@ class App {
           foundDeck.fetchCards();
           foundDeck.postCardFetch();
           foundDeck.nextCard();
+          foundDeck.cardDelete();
     
           let modal = document.querySelector(".modal");
           let closebtn = document.querySelector("#close");

@@ -7,5 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 deck_1 = Deck.create(name: 'Norsk101', category: 'Languages')
-Card.create(term: 'Spring', description: 'a card about spring', deck_id: deck_1)
+# Card.create(term: 'Spring', description: 'a card about spring', deck_id: deck_1)
 Deck.create(name: 'JavaScript101', category: 'Web development')

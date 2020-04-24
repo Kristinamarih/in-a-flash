@@ -1,7 +1,7 @@
 class CardsController < ApplicationController
 
     def index
-        @cards = Card.all 
+        @cards = Card.all
         serialized_data = CardSerializer.new(@cards)
         render json: serialized_data
     end
@@ -13,7 +13,6 @@ class CardsController < ApplicationController
     end
 
     def create
-        # byebug
         @card = Card.new(card_params)
         if @card.save
             render json: CardSerializer.new(@card)
