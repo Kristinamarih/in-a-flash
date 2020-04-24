@@ -34,11 +34,12 @@ class Deck {
     };
 
     fetchCards() {
-        fetch(`http:localhost:3000/decks/${this.id}/cards`)
+        const cardDetails = document.querySelector("#card-details");
+        
+        fetch(`http://localhost:3000/decks/${this.id}/cards`)
         .then(resp => resp.json())
         .then((cardDataJSON) => {
-            cardData = cardDataJSON.data.attributes
-            debugger
+            const cardData = cardDataJSON.data
             cardData.forEach((card) => {
                 fetch(`http://localhost:3000/decks/${this.id}/cards/${card.id}`)
                 .then(resp => resp.json())
@@ -88,7 +89,7 @@ class Deck {
             fetch(`http://localhost:3000/decks/${this.id}/cards`)
             .then(resp => resp.json())
             .then((cardDataJSON) => {
-                cardData = cardDataJSON.data
+                const cardData = cardDataJSON.data
                 cardData.forEach((card) => {
                     fetch(`http://localhost:3000/decks/${this.id}/cards/${card.id}`)
                     .then(resp => resp.json())
