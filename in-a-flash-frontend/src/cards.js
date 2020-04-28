@@ -11,13 +11,15 @@ class Card {
     };
 
     renderCard() {
-        return `<div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+        return `<div class="card border-primary mb-3" style="max-width: 30rem;">
                     <div class="card-header">Card</div>
                     <div class="card-body">
                         <h4 class="card-title">${this.term}</h4>
                         <p class="card-text">${this.description}</p>
                     </div>
-                    <button data-id=${this.id} type="button" id="delete-card" class="btn btn-outline-primary">Delete</button>
+                    <div class="text-center">
+                    <button data-id=${this.id} type="button" id="delete-card" class="btn btn-primary" style="max-width: 5rem;">Delete</button>
+                    </div>
                 </div>`
     };
 }

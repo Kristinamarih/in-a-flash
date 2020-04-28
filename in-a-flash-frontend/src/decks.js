@@ -103,8 +103,10 @@ class Deck {
     }
 
     cardDelete() {
-        debugger
-        document.querySelector("#delete-card").addEventListener("click", e => {
+        // debugger
+        const deleteCard = document.querySelector("#delete-card");
+        
+        deleteCard.addEventListener("click", e => {
             e.preventDefault();
             fetch(`http://localhost:3000/decks/${this.id}/cards/${card.id}`, { method: 'DELETE' })
                 .then(res => res.json())
