@@ -1,12 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const app = new App();
     app.attachEventListeners();
+    getDecks();
     
+});
+
+function getDecks() {
     let deckData = []
     const deckList = document.querySelector('#decks-list');
-    const deckForm = document.querySelector('#new-deck-form');
-    const deckNameInput = document.querySelector('#name-field');
-    const deckCategoryInput = document.querySelector('#category-field');
 
     fetch('http://localhost:3000/decks')
         .then(resp => resp.json())
@@ -17,6 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 deckList.innerHTML += newDeck.renderDeck();
             });
          });
+};
+
+function postDeck() {
+    const deckForm = document.querySelector('#new-deck-form');
+    const deckNameInput = document.querySelector('#name-field');
+    const deckCategoryInput = document.querySelector('#category-field');
 
     deckForm.addEventListener('submit', e => {
         e.preventDefault();
@@ -39,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             deckList.innerHTML += newDeckItem.renderDeck()
         });
     });
+};
 
     // deckList.addEventListener('click', e => {
     //     e.preventDefault();
@@ -48,4 +56,3 @@ document.addEventListener('DOMContentLoaded', () => {
     //         deck.nextCard()
     //     };
     // });
-});
