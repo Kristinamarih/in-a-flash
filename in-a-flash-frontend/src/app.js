@@ -30,7 +30,7 @@ class App {
         }
 
         else if (e.target.className == "btn btn-outline-primary delete-buttons") {
-          debugger
+          // debugger
           let id = parseInt(e.target.id.split("-")[2]);
           fetch(`http://localhost:3000/decks/${id}`, { method: 'DELETE' })
           .then(res => res.json())
