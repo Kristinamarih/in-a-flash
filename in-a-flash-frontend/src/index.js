@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // const app = new App();
     // app.attachEventListeners();
-    console.log("DOM is loaded");
     getDecks();
 
     const deckList = document.querySelector('#decks-list')
@@ -26,9 +25,7 @@ function getDecks() {
         .then((decks) => {
             decks.data.forEach(deck => {
             let newDeck = new Deck(deck.id, deck.attributes.name, deck.attributes.category)
-            // debugger
             document.querySelector('#decks-list').innerHTML += newDeck.renderDeck();
-            // debugger
             });
     });
 };
@@ -39,7 +36,7 @@ function getSelectedDeck(e) {
         let foundDeck = Deck.findDeck(id);
         document.querySelector('#deck-info').innerHTML = foundDeck.renderDetails();
 
-        foundDeck.getCards(id);
+        getCards(foundDeck.id);
         // foundDeck.postCardFetch();
         // foundDeck.nextCard();
         // foundDeck.cardDelete();
@@ -58,14 +55,22 @@ function getSelectedDeck(e) {
           };
         };
       } else if (e.target.className == "btn btn-outline-primary delete-buttons") {
-        // debugger
         let id = parseInt(e.target.id.split("-")[2]);
-        fetch(`http://localhost:3000/decks/${id}`, { method: 'DELETE' })
-        .then(res => res.json())
-        .then(res => {
-            res.remove()
-        });
+        deleteDeck(id)
       };
+}
+
+function deleteDeck(id) {
+    fetch(`http://localhost:3000/decks/${id}`, { method: 'DELETE' })
+    .then(res => {
+        if (res.ok) {
+            return res.json();
+        } else {
+            return Promise.reject(res.status);
+        }
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(`Error with message: ${err}`));
 }
 
 function deckFormHandler(e) {
@@ -90,7 +95,7 @@ function postDeck(name, category) {
     })
     .then((res) => res.json())
     .then(function(deck) {
-        const newDeckItem = new Deck(deck.attributes)
+        const newDeckItem = new Deck(deck.data.id, deck.data.attributes.name, deck.data.attributes.category)
         document.querySelector('#decks-list').innerHTML += newDeckItem.renderDeck()
     });
 };
