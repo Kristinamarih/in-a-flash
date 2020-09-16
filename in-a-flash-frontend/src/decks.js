@@ -28,7 +28,7 @@ class Deck {
                   <label for='description'>Description:</label>
                   <input type=text name='deck[card][description]' id='description-field' placeholder="Chocolate" class="form-control">
                   <br>
-                  <button type="submit" id="submit-button" class="btn btn-primary">Save</button>
+                  <button type="submit" id="submit-card-${this.id}" class="btn btn-primary">Save</button>
                 </form>
               </div>`
     };

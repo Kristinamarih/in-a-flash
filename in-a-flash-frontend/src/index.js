@@ -9,11 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const deckForm = document.querySelector('#new-deck-form')
     deckForm.addEventListener("submit", (e) => deckFormHandler(e))
 
-    const cardForm = document.querySelector('#new-card-form')
-    cardForm && cardForm.addEventListener("submit", (e) => cardFormHandler(e))
-
-    const nextCard = document.querySelector('#next-card')
-    nextCard && nextCard.addEventListener("click", (e) => nextCardHandler(e))
+    // const cardForm = document.querySelector('#new-card-form')
+    // cardForm && cardForm.addEventListener("submit", (e) => cardFormHandler(e))
 
     const deleteCard = document.querySelector("#delete-card")
     deleteCard && deleteCard.addEventListener("click", (e) => deleteCardHandler(e))
@@ -36,7 +33,14 @@ function getSelectedDeck(e) {
         let foundDeck = Deck.findDeck(id);
         document.querySelector('#deck-info').innerHTML = foundDeck.renderDetails();
 
-        getCards(foundDeck.id);
+        const nextCard = document.querySelector('#next-card')
+        nextCard.addEventListener("click", (e) => nextCardHandler(e, id))
+
+        const cardForm = document.querySelector('#new-card-form')
+        cardForm.addEventListener("submit", (e) => cardFormHandler(e, id))
+
+        getCards(id);
+        debugger
         // foundDeck.postCardFetch();
         // foundDeck.nextCard();
         // foundDeck.cardDelete();
@@ -116,15 +120,19 @@ function getCards(deckId) {
     });
 };
 
-function cardFormHandler(e) {
+function cardFormHandler(e, id) {
     e.preventDefault()
+    debugger
+    // let id = parseInt(e.target.id.split("-")[2])
     const cardTermInput = document.querySelector('#term-field').value;
     const cardDescriptionInput = document.querySelector('#description-field').value;
-    postCard(cardTermInput, cardDescriptionInput)
+    debugger
+    postCard(id, cardTermInput, cardDescriptionInput)
 }
 
-function postCard(term, description) {
-    fetch(`http://localhost:3000/decks/${this.id}/cards`, {
+function postCard(id, term, description) {
+    debugger
+    fetch(`http://localhost:3000/decks/${id}/cards`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -148,14 +156,14 @@ function postCard(term, description) {
 //     nextCard()
 // }
 
-function nextCardHandler(e) {
+function nextCardHandler(e, id) {
     e.preventDefault()
-    fetch(`http://localhost:3000/decks/${this.id}/cards`)
+    fetch(`http://localhost:3000/decks/${id}/cards`)
     .then(resp => resp.json())
     .then((cardDataJSON) => {
         const cardData = cardDataJSON.data
         cardData.forEach((card) => {
-            fetch(`http://localhost:3000/decks/${this.id}/cards/${card.id}`)
+            fetch(`http://localhost:3000/decks/${id}/cards/${card.id}`)
             .then(resp => resp.json())
             .then((card) => {
                 const newCard = new Card(card.id, card.term, card.description)
