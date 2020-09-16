@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     // const app = new App();
     // app.attachEventListeners();
-    // console.log("DOM is loaded");
-    getDecks(); 
+    console.log("DOM is loaded");
+    getDecks();
 
     const deckList = document.querySelector('#decks-list')
-    deckList.addEventListener("click", (e) => getSpecificDeck(e))
+    deckList.addEventListener("click", (e) => getSelectedDeck(e))
 
     const deckForm = document.querySelector('#new-deck-form')
     deckForm.addEventListener("submit", (e) => deckFormHandler(e))
@@ -21,20 +21,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function getDecks() {
-    // let deckData = []
-    // debugger
-    return fetch('http://localhost:3000/decks')
+    fetch('http://localhost:3000/decks')
         .then(resp => resp.json())
         .then((decks) => {
-            // deckData = deckDataJSON.data
-            decks.data.forEach((deck) => {
+            decks.data.forEach(deck => {
             let newDeck = new Deck(deck.id, deck.attributes.name, deck.attributes.category)
+            // debugger
             document.querySelector('#decks-list').innerHTML += newDeck.renderDeck();
+            // debugger
             });
     });
 };
 
-function getSpecificDeck(e) {
+function getSelectedDeck(e) {
     if (e.target.className == "btn btn-outline-primary deck-buttons") {
         let id = parseInt(e.target.id.split("-")[2]);
         let foundDeck = Deck.findDeck(id);
@@ -84,8 +83,8 @@ function postDeck(name, category) {
             'Accept': 'application/json'},
         body: JSON.stringify({
             deck: {
-            name: name,
-            category: category
+            name,
+            category
             }
         }),
     })
@@ -127,8 +126,8 @@ function postCard(term, description) {
             'Accept': 'application/json'},
         body: JSON.stringify({
             card: {
-                term: term,
-                description: description
+                term,
+                description
             }
         }),
     })
@@ -139,12 +138,13 @@ function postCard(term, description) {
     });
 }
 
+// function nextCardHandler(e) {
+//     e.preventDefault()
+//     nextCard()
+// }
+
 function nextCardHandler(e) {
     e.preventDefault()
-    nextCard()
-}
-
-function nextCard() {
     fetch(`http://localhost:3000/decks/${this.id}/cards`)
     .then(resp => resp.json())
     .then((cardDataJSON) => {
