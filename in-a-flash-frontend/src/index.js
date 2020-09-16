@@ -40,7 +40,6 @@ function getSelectedDeck(e) {
         cardForm.addEventListener("submit", (e) => cardFormHandler(e, id))
 
         getCards(id);
-        debugger
         // foundDeck.postCardFetch();
         // foundDeck.nextCard();
         // foundDeck.cardDelete();
@@ -105,7 +104,7 @@ function postDeck(name, category) {
 };
 
 function getCards(deckId) {
-    fetch(`http://localhost:3000/decks/${deckId}/cards`)
+    fetch(`http://localhost:3000/decks/${deckId}/${cards[0]}`)
     .then(resp => resp.json())
     .then((cardDataJSON) => {
         const cardData = cardDataJSON.data
@@ -122,16 +121,12 @@ function getCards(deckId) {
 
 function cardFormHandler(e, id) {
     e.preventDefault()
-    debugger
-    // let id = parseInt(e.target.id.split("-")[2])
     const cardTermInput = document.querySelector('#term-field').value;
     const cardDescriptionInput = document.querySelector('#description-field').value;
-    debugger
     postCard(id, cardTermInput, cardDescriptionInput)
 }
 
 function postCard(id, term, description) {
-    debugger
     fetch(`http://localhost:3000/decks/${id}/cards`, {
         method: 'POST',
         headers: {
@@ -151,16 +146,12 @@ function postCard(id, term, description) {
     });
 }
 
-// function nextCardHandler(e) {
-//     e.preventDefault()
-//     nextCard()
-// }
-
 function nextCardHandler(e, id) {
     e.preventDefault()
     fetch(`http://localhost:3000/decks/${id}/cards`)
     .then(resp => resp.json())
     .then((cardDataJSON) => {
+        debugger
         const cardData = cardDataJSON.data
         cardData.forEach((card) => {
             fetch(`http://localhost:3000/decks/${id}/cards/${card.id}`)
