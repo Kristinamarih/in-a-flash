@@ -1,24 +1,23 @@
 class DecksController < ApplicationController
 
     def index
-        @decks = Deck.all
-        serialized_data = DeckSerializer.new(@decks)
-        render json: serialized_data
+        decks = Deck.all
+        render json: DeckSerializer.new(decks)
     end
 
-    def show
-        @deck = Deck.find_by(id: params[:id])
-        render json: @deck
-    end
+    # def show
+    #     @deck = Deck.find_by(id: params[:id])
+    #     render json: @deck
+    # end
 
-    def new
-        @deck = Deck.new
-    end
+    # def new
+    #     @deck = Deck.new
+    # end
 
     def create
-        @deck = Deck.new(deck_params)
-        if @deck.save
-            render json: DeckSerializer.new(@deck)
+        deck = Deck.new(deck_params)
+        if deck.save
+            render json: DeckSerializer.new(deck)
         else
             render json: new
         end

@@ -6,6 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-deck_1 = Deck.create(name: 'Norsk101', category: 'Languages')
-# Card.create(term: 'Spring', description: 'a card about spring', deck_id: deck_1)
-Deck.create(name: 'JavaScript101', category: 'Web development')
+# deck_1 = Deck.create(name: 'Norsk101', category: 'Languages')
+# Card.create(term: 'Hei hei', description: 'Hello', deck_id: deck_1)
+# Deck.create(name: 'JavaScript101', category: 'Web development')

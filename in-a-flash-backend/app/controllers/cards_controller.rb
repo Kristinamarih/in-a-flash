@@ -2,8 +2,7 @@ class CardsController < ApplicationController
 
     def index
         @cards = Card.all
-        serialized_data = CardSerializer.new(@cards)
-        render json: serialized_data
+        render json: CardSerializer.new(@cards)
     end
 
     def show
