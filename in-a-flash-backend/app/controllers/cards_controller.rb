@@ -12,11 +12,11 @@ class CardsController < ApplicationController
     end
 
     def create
-        @card = Card.new(card_params)
-        if @card.save
-            render json: CardSerializer.new(@card)
+        card = Card.new(card_params)
+        if card.save
+            render json: CardSerializer.new(card)
         else
-            render json: @card
+            render json: card
         end
         # @deck = Deck.find(params[:deck_id])
         # @card = @deck.cards.create(card_params)

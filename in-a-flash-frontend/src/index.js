@@ -9,9 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const deckForm = document.querySelector('#new-deck-form')
     deckForm.addEventListener("submit", (e) => deckFormHandler(e))
 
-    // const cardForm = document.querySelector('#new-card-form')
-    // cardForm && cardForm.addEventListener("submit", (e) => cardFormHandler(e))
-
     const deleteCard = document.querySelector("#delete-card")
     deleteCard && deleteCard.addEventListener("click", (e) => deleteCardHandler(e))
 });
@@ -33,16 +30,10 @@ function getSelectedDeck(e) {
         let foundDeck = Deck.findDeck(id);
         document.querySelector('#deck-info').innerHTML = foundDeck.renderDetails();
 
-        const nextCard = document.querySelector('#next-card')
-        nextCard.addEventListener("click", (e) => nextCardHandler(e, id))
+        getCards(id);
 
         const cardForm = document.querySelector('#new-card-form')
         cardForm.addEventListener("submit", (e) => cardFormHandler(e, id))
-
-        getCards(id);
-        // foundDeck.postCardFetch();
-        // foundDeck.nextCard();
-        // foundDeck.cardDelete();
   
         let modal = document.querySelector(".modal");
         let closebtn = document.querySelector("#close");
@@ -103,17 +94,23 @@ function postDeck(name, category) {
     });
 };
 
-function getCards(deckId) {
-    fetch(`http://localhost:3000/decks/${deckId}/${cards[0]}`)
+function getCards(id) {
+    fetch(`http://localhost:3000/decks/${id}/cards`)
     .then(resp => resp.json())
     .then((cardDataJSON) => {
         const cardData = cardDataJSON.data
         cardData.forEach((card) => {
-            fetch(`http://localhost:3000/decks/${deckId}/cards/${card.id}`)
+            fetch(`http://localhost:3000/decks/${id}/cards/${card.id}`)
             .then(resp => resp.json())
-            .then((card) => {
-                const newCard = new Card(card.id, card.term, card.description)
-                document.querySelector("#card-details").innerHTML = newCard.renderCard();
+            .then(card => {  
+                const newCard = new Card(card.id, card.term, card.description, card.deck_id)
+                document.querySelector("#card-details").innerHTML = newCard.renderCard()
+                
+                const nextCard = document.querySelector('#next-card')
+                nextCard.addEventListener("click", (e) => {
+                    
+                })
+                // nextCard.addEventListener("click", (e) => nextCardHandler(e, id))
             });
         });
     });
@@ -126,8 +123,8 @@ function cardFormHandler(e, id) {
     postCard(id, cardTermInput, cardDescriptionInput)
 }
 
-function postCard(id, term, description) {
-    fetch(`http://localhost:3000/decks/${id}/cards`, {
+function postCard(deck_id, term, description) {
+    fetch(`http://localhost:3000/decks/${deck_id}/cards`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -135,33 +132,37 @@ function postCard(id, term, description) {
         body: JSON.stringify({
             card: {
                 term,
-                description
+                description,
+                deck_id
             }
         }),
     })
     .then((res) => res.json())
-    .then(function(card) {
-        const newCardItem = new Card(card.id, card.term, card.description)
+    .then((card) => {
+        const newCardItem = new Card(card.data.id, card.data.attributes.term, card.data.attributes.description, card.data.attributes.deck_id)
         document.querySelector("#card-details").innerHTML = newCardItem.renderCard()
     });
 }
 
-function nextCardHandler(e, id) {
+function nextCardHandler(e, deck_id) {
     e.preventDefault()
-    fetch(`http://localhost:3000/decks/${id}/cards`)
-    .then(resp => resp.json())
-    .then((cardDataJSON) => {
-        debugger
-        const cardData = cardDataJSON.data
-        cardData.forEach((card) => {
-            fetch(`http://localhost:3000/decks/${id}/cards/${card.id}`)
-            .then(resp => resp.json())
-            .then((card) => {
-                const newCard = new Card(card.id, card.term, card.description)
-                document.querySelector("#card-details").innerHTML = newCard.renderCard();
-            });
-        });
-    });
+    deck_id && card.deck_id.map(card => {
+        document.querySelector("#card-details").innerHTML = card.renderCard();
+    })
+    // fetch(`http://localhost:3000/decks/${id}/cards`)
+    // .then(resp => resp.json())
+    // .then((cardDataJSON) => {
+    //     debugger
+    //     const cardData = cardDataJSON.data
+    //     cardData.forEach((card) => {
+    //         fetch(`http://localhost:3000/decks/${id}/cards/${card.id}`)
+    //         .then(resp => resp.json())
+    //         .then((card) => {
+    //             const newCard = new Card(card.id, card.term, card.description)
+    //             document.querySelector("#card-details").innerHTML = newCard.renderCard();
+    //         });
+    //     });
+    // });
 }
 
 function deleteCardHandler(e) {
