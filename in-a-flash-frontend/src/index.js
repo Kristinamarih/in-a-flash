@@ -106,24 +106,22 @@ function getCards(id) {
             const newCard = new Card(card.id, card.term, card.description, card.deck_id)
             document.querySelector("#card-details").innerHTML = newCard.renderCard()
         
-                const nextCard = document.querySelector('#next-card')
-                nextCard.addEventListener("click", (e) => {
+                document.querySelector('#next-card').addEventListener("click", (e) => {
                     e.preventDefault()
                     // debugger
-                    const nextCardId = cardData[ (+ 1) ].id
+                    const nextCardId = cardData[ + 1 ].id
                     const newCard = Card.findCard(nextCardId)
                     debugger
-                    const futureCard = new Card(newCard.id, newCard.term, newCard.description, newCard.deck_id)
-                    document.querySelector("#card-details").innerHTML = futureCard.renderCard()
+                    // const futureCard = new Card(newCard.id, newCard.term, newCard.description, newCard.deck_id)
+                    document.querySelector("#card-details").innerHTML = newCard.renderCard()
                 })
 
-                const previousCard = document.querySelector('#previous-card')
-                previousCard.addEventListener("click", (e) => {
+                document.querySelector('#previous-card').addEventListener("click", (e) => {
                     e.preventDefault()
                     const previousCardId = cardData[ - 1 ].id
                     const newCard = Card.findCard(previousCardId)
-                    const futureCard = new Card(newCard.id, newCard.term, newCard.description, newCard.deck_id)
-                    document.querySelector("#card-details").innerHTML = futureCard.renderCard()
+                    // const futureCard = new Card(newCard.id, newCard.term, newCard.description, newCard.deck_id)
+                    document.querySelector("#card-details").innerHTML = newCard.renderCard()
                 })
             })
         })
