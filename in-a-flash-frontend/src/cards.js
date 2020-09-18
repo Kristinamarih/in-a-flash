@@ -19,6 +19,7 @@ class Card {
                         <p class="card-description">${this.description}</p>
                     </div>
                     <div class="text-center">
+                    <button data-id=${this.id} type="button" id="previous-card" class="btn btn-outline-primary">Previous card</button>
                     <button data-id=${this.id} type="button" id="delete-card" class="btn btn-primary" style="max-width: 5rem;">Delete</button>
                     <button data-id=${this.id} type="button" id="next-card" class="btn btn-outline-primary">Next card</button>
                     </div>
