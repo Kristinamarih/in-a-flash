@@ -99,8 +99,10 @@ function getCards(id) {
     .then(resp => resp.json())
     .then((cardDataJSON) => {
         const cardData = cardDataJSON.data
-        cardData.forEach(card => {
-        fetch(`http://localhost:3000/decks/${id}/cards/${card.id}`)
+        const sorted = cardData.sort((r,a) => new Date(r.created_at) - new Date(a.created_at))
+        debugger
+        // cardData.forEach(card => {
+        fetch(`http://localhost:3000/decks/${id}/cards/${sorted.id}`)
         .then(resp => resp.json())
         .then(card => { 
             const newCard = new Card(card.id, card.term, card.description, card.deck_id)
@@ -124,7 +126,7 @@ function getCards(id) {
                     document.querySelector("#card-details").innerHTML = newCard.renderCard()
                 })
             })
-        })
+        // })
     })
 }
 

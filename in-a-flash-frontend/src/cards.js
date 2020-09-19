@@ -1,9 +1,10 @@
 class Card {
-    constructor(id, term, description, deck_id) {
+    constructor(id, term, description, deck_id, created_at) {
         this.id = id;
         this.term = term;
         this.description = description;
-        this.deck_id = deck_id
+        this.deck_id = deck_id;
+        this.created_at = created_at;
         Card.all.push(this);
     };
 
