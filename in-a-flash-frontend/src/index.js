@@ -1,21 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // const app = new App();
-    // app.attachEventListeners();
     getDecks();
-
+    
     const deckList = document.querySelector('#decks-list')
     deckList.addEventListener("click", (e) => getSelectedDeck(e))
 
     const deckForm = document.querySelector('#new-deck-form')
     deckForm.addEventListener("submit", (e) => deckFormHandler(e))
 });
+const url = 'http://localhost:3000/decks'
 
 function getDecks() {
-    fetch('http://localhost:3000/decks')
+    fetch(url)
         .then(resp => resp.json())
         .then((decks) => {
             decks.data.forEach(deck => {
-            let newDeck = new Deck(deck.id, deck.attributes.name, deck.attributes.category)
+                debugger
+            let newDeck = new Deck(deck.id, deck.attributes.name, deck.attributes.category, deck.relationships.cards)
             document.querySelector('#decks-list').innerHTML += newDeck.renderDeck();
             });
     });
@@ -24,11 +24,12 @@ function getDecks() {
 function getSelectedDeck(e) {
     if (e.target.className == "btn btn-outline-primary deck-buttons") {
         let id = parseInt(e.target.id.split("-")[2]);
-        let foundDeck = Deck.findDeck(id);
-        document.querySelector('#deck-info').innerHTML = foundDeck.renderDetails();
-
-        getCards(id);
-
+        let deck = Deck.findDeck(id);
+        debugger
+        document.querySelector('#deck-info').innerHTML = deck.renderDetails()
+        
+        getCards(id)
+    
         const cardForm = document.querySelector('#new-card-form')
         cardForm.addEventListener("submit", (e) => cardFormHandler(e, id))
 
@@ -46,7 +47,6 @@ function getSelectedDeck(e) {
           };
         };
       } else if (e.target.className == "btn btn-outline-primary delete-buttons") {
-        let id = parseInt(e.target.id.split("-")[2]);
         deleteDeck(id)
       };
 }
@@ -91,36 +91,48 @@ function postDeck(name, category) {
     });
 };
 
-let cardsArray = []
-
-function getCards(id, addCard=0) {
-    fetch(`http://localhost:3000/decks/${id}/cards`)
-    .then(resp => resp.json())
-    .then((cardDataJSON) => {
-        const cardData = cardDataJSON.data
-        cardData.forEach(card => {
-            fetch(`http://localhost:3000/decks/${id}/cards/${card.id}`)
-            .then(resp => resp.json())
-            .then(card => { 
-                cardsArray.push(new Card(card.id, card.term, card.description, card.deck_id))
-                document.querySelector("#card-details").innerHTML = cardsArray[addCard].renderCard()
-
-                document.querySelector('#next-card').addEventListener("click", (e) => {
-                    e.preventDefault()
-                    ++addCard
-                    getCards(id, addCard)
-                })
-
-                document.querySelector('#previous-card').addEventListener("click", (e) => {
-                    e.preventDefault()
-                    --addCard
-                    getCards(id, addCard)
-                })
-
-                document.querySelector("#delete-card").addEventListener("click", (e) => deleteCardHandler(e, id, card))
-            })
-        }) 
+function cardHandler(deck) {
+    document.querySelector('#next-card').addEventListener("click", (e) => {
+        e.preventDefault()
+        debugger
+        let nextCard = deck.cards[+1]
+        nextCard.renderCard()
     })
+        
+    document.querySelector('#previous-card').addEventListener("click", (e) => {
+        e.preventDefault()
+        let previousCard = deck.cards[-1]
+        previousCard.renderCard()
+    })
+}
+
+function getCards(deck_id) {
+    fetch(`http://localhost:3000/decks/${deck_id}/cards`)
+    .then(resp => resp.json())
+    .then(cardJSON => { 
+        let cards = cardJSON.data
+        debugger
+        cards.forEach(card => {
+            let newCard = new Card(card.id, card.attributes.term, card.attributes.description)
+            document.querySelector("#card-details").innerHTML = newCard.renderCard()
+        })
+        
+
+//                 document.querySelector('#next-card').addEventListener("click", (e) => {
+//                     e.preventDefault()
+//                     ++addCard
+//                     getCards(id, addCard)
+//                 })
+
+//                 document.querySelector('#previous-card').addEventListener("click", (e) => {
+//                     e.preventDefault()
+//                     --addCard
+//                     getCards(id, addCard)
+//                 })
+
+//                 document.querySelector("#delete-card").addEventListener("click", (e) => deleteCardHandler(e, id, card))
+//             // })
+        })
 }
 
 //     const nextCardButton = document.querySelector('#next-card')
@@ -195,14 +207,13 @@ function postCard(deck_id, term, description) {
         body: JSON.stringify({
             card: {
                 term,
-                description,
-                deck_id
+                description
             }
         }),
     })
     .then((res) => res.json())
     .then((card) => {
-        const newCardItem = new Card(card.data.id, card.data.attributes.term, card.data.attributes.description, card.data.attributes.deck_id)
+        const newCardItem = new Card(card.data.id, card.data.attributes.term, card.data.attributes.description)
         document.querySelector("#card-details").innerHTML = newCardItem.renderCard()
     });
 }
@@ -213,6 +224,7 @@ function deleteCardHandler(e, deck_id, card) {
 }
 
 function cardDelete(deck_id, card) {
+    debugger
     fetch(`http://localhost:3000/decks/${deck_id}/cards/${card.id}`, { method: 'DELETE' })
     .then(res => {
         if (res.ok) {
