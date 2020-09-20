@@ -96,7 +96,7 @@ function postDeck(name, category) {
 
 let cardsArray = []
 
-function getCards(id) {
+function getCards(id, addCard=0) {
     fetch(`http://localhost:3000/decks/${id}/cards`)
     .then(resp => resp.json())
     .then((cardDataJSON) => {
@@ -105,46 +105,49 @@ function getCards(id) {
             fetch(`http://localhost:3000/decks/${id}/cards/${card.id}`)
             .then(resp => resp.json())
             .then(card => { 
-                debugger
                 cardsArray.push(new Card(card.id, card.term, card.description, card.deck_id))
-                document.querySelector("#card-details").innerHTML = cardsArray[0].renderCard()
-            })
-        })
-        document.querySelector('#next-card').addEventListener("click", (e) => {
-            e.preventDefault()
-            const nextCardId = cardsArray[+1].id
-            const nextCard = Card.findCard(nextCardId)
-            document.querySelector("#card-details").innerHTML = nextCard.renderCard()
-        })
+                document.querySelector("#card-details").innerHTML = cardsArray[addCard].renderCard()
 
-        document.querySelector('#previous-card').addEventListener("click", (e) => {
-            e.preventDefault()
-            const previousCardId = cardsArray[-1].id
-            const previousCard = Card.findCard(previousCardId)
-            document.querySelector("#card-details").innerHTML = previousCard.renderCard()
-        })    
+                document.querySelector('#next-card').addEventListener("click", (e) => {
+                    e.preventDefault()
+                    ++addCard
+                    getCards(id, addCard)
+                })
+
+                document.querySelector('#previous-card').addEventListener("click", (e) => {
+                    e.preventDefault()
+                    --addCard
+                    getCards(id, addCard)
+                })
+            })
+        }) 
     })
+
+//     const nextCardButton = document.querySelector('#next-card')
+//     nextCardButton.addEventListener("click", (e) => { nextCard(e, cardsArray)})
+
+
+// const previousCardButton = document.querySelector('#previous-card')
+//     previousCardButton.addEventListener("click", (e) => { previousCard(e, cardsArray)})
+
+
 }
 
-// document.querySelector('#next-card').addEventListener("click", (e) => nextCard(e, cardsArray))
+function nextCard(e, cardsArray) {
+    e.preventDefault()
+    const nextCardId = cardsArray[ + 1 ].id
+    debugger
+    const nextCard = Card.findCard(nextCardId)
+    document.querySelector("#card-details").innerHTML = nextCard.renderCard()
+}
 
-//  => previousCard(e, cardsArray))
-
-// function nextCard(e, cardsArray) {
-//     e.preventDefault()
-//     const nextCardId = cardsArray[ + 1 ].id
-//     debugger
-//     const nextCard = Card.findCard(nextCardId)
-//     document.querySelector("#card-details").innerHTML = nextCard.renderCard()
-// }
-
-// function previousCard(e, cardsArray) {
-//     e.preventDefault()
-//     debugger
-//     const previousCardId = cardsArray[ - 1 ].id
-//     const previousCard = Card.findCard(previousCardId)
-//     document.querySelector("#card-details").innerHTML = previousCard.renderCard()
-// }       
+function previousCard(e, cardsArray) {
+    e.preventDefault()
+    debugger
+    const previousCardId = cardsArray[ - 1 ].id
+    const previousCard = Card.findCard(previousCardId)
+    document.querySelector("#card-details").innerHTML = previousCard.renderCard()
+}       
 
                 // document.querySelector('#previous-card').addEventListener("click", (e) => {
                 //     e.preventDefault()
