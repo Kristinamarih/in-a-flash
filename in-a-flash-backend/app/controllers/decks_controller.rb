@@ -5,10 +5,10 @@ class DecksController < ApplicationController
         render json: DeckSerializer.new(decks)
     end
 
-    # def show
-    #     @deck = Deck.find_by(id: params[:id])
-    #     render json: @deck
-    # end
+    def show
+        @deck = Deck.find_by(id: params[:id])
+        render json: @deck
+    end
 
     # def new
     #     @deck = Deck.new
@@ -46,7 +46,7 @@ class DecksController < ApplicationController
     private
     
     def deck_params
-        params.require(:deck).permit(:name, :category)
+        params.require(:deck).permit(:name, :category, :cards_attributes=>[:id, :term, :description])
     end
 
 end
