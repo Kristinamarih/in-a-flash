@@ -14,9 +14,8 @@ function getDecks() {
         .then(resp => resp.json())
         .then((decks) => {
             decks.data.forEach(deck => {
-                debugger
-            let newDeck = new Deck(deck.id, deck.attributes.name, deck.attributes.category, deck.relationships.cards)
-            document.querySelector('#decks-list').innerHTML += newDeck.renderDeck();
+                let newDeck = new Deck(deck.id, deck.attributes.name, deck.attributes.category, deck.relationships.cards)
+                document.querySelector('#decks-list').innerHTML += newDeck.renderDeck();
             });
     });
 };
@@ -25,10 +24,9 @@ function getSelectedDeck(e) {
     if (e.target.className == "btn btn-outline-primary deck-buttons") {
         let id = parseInt(e.target.id.split("-")[2]);
         let deck = Deck.findDeck(id);
-        debugger
         document.querySelector('#deck-info').innerHTML = deck.renderDetails()
         
-        getCards(id)
+        getCards(deck)
     
         const cardForm = document.querySelector('#new-card-form')
         cardForm.addEventListener("submit", (e) => cardFormHandler(e, id))
@@ -106,16 +104,32 @@ function cardHandler(deck) {
     })
 }
 
-function getCards(deck_id) {
-    fetch(`http://localhost:3000/decks/${deck_id}/cards`)
+cardsArray = []
+function getCards(deck) {
+    fetch(`http://localhost:3000/decks/${deck.id}/cards`)
     .then(resp => resp.json())
-    .then(cardJSON => { 
+    .then(cardJSON => {
         let cards = cardJSON.data
-        debugger
         cards.forEach(card => {
-            let newCard = new Card(card.id, card.attributes.term, card.attributes.description)
+            let newCard = new Card(card.attributes.id, card.attributes.term, card.attributes.description)
+            cardsArray.push(newCard)
             document.querySelector("#card-details").innerHTML = newCard.renderCard()
         })
+        debugger
+        function getSpecificCard(index=0) {document.querySelector("#card-details").innerHTML = cardsArray[index].renderCard()}
+        
+        document.querySelector('#next-card').addEventListener("click", (e, i) => {
+            e.preventDefault()
+            getSpecificCard(i++)
+        })
+
+        document.querySelector('#previous-card').addEventListener("click", (e, i) => {
+            e.preventDefault()
+            getSpecificCard(i--)
+        })
+    })
+}
+    
         
 
 //                 document.querySelector('#next-card').addEventListener("click", (e) => {
@@ -131,9 +145,7 @@ function getCards(deck_id) {
 //                 })
 
 //                 document.querySelector("#delete-card").addEventListener("click", (e) => deleteCardHandler(e, id, card))
-//             // })
-        })
-}
+//     
 
 //     const nextCardButton = document.querySelector('#next-card')
 //     nextCardButton.addEventListener("click", (e) => { nextCard(e, cardsArray)})
