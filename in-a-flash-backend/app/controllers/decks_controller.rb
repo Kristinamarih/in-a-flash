@@ -10,9 +10,9 @@ class DecksController < ApplicationController
         render json: @deck
     end
 
-    # def new
-    #     @deck = Deck.new
-    # end
+    def new
+        @deck = Deck.new
+    end
 
     def create
         deck = Deck.new(deck_params)

@@ -1,4 +1,6 @@
 class CardsController < ApplicationController
+    # before_action :get_deck
+    # before_action :set_card
 
     def index
         deck = Deck.find_by(id: params[:deck_id])
@@ -6,13 +8,23 @@ class CardsController < ApplicationController
         render json: CardSerializer.new(cards)
     end
 
+    def show	
+        @card = Card.find_by(id: params[:id])
+        @deck = Deck.find(params[:deck_id])	
+        render json: @card	
+    end
+
+    def new
+        card = deck.cards.build
+    end
+
     def create
-        deck = Deck.find_by(id: params[:deck_id])
-        card = Card.new(card_params)
+        deck = Deck.find(params[:deck_id])
+        card = deck.cards.build(card_params)
         if card.save
             render json: CardSerializer.new(card)
         else
-            render json: card
+            render json: new
         end
     end
 
@@ -31,13 +43,20 @@ class CardsController < ApplicationController
     # end
 
     def destroy
-        @card = Card.find_by(id: params[:id])
-        deck = Deck.find_by(id: params[:id])
-        @card.destroy
-        redirect_to new_deck_card_path(deck)
+        card = Card.find_by(id: params[:id])
+        deck = Deck.find_by(id: params[:deck_id])
+        card.destroy
     end
 
     private
+
+    # def get_deck
+    #     deck = Deck.find(params[:deck_id])
+    # end
+
+    # def set_card
+    #     card = deck.cards.find(params[:id])
+    # end
     
     def card_params
         params.require(:card).permit(:term, :description, :deck_id)
