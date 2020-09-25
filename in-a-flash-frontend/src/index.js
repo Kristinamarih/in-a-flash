@@ -26,20 +26,16 @@ function getSelectedDeck(e) {
         let deck = Deck.findDeck(id);
         document.querySelector('#deck-info').innerHTML = deck.renderDetails()
         
-        getCards(deck)
+        debugger
+        if (deck.cards.data.length > 0) {
+            getCards(deck)
+        }
     
         const cardForm = document.querySelector('#new-card-form')
         cardForm.addEventListener("submit", (e) => cardFormHandler(e, id))
 
         let modal = document.querySelector(".modal");
         let closebtn = document.querySelector("#close")
-        
-        closebtn.addEventListener("click", (e) => {
-            e.preventDefault()
-            debugger
-            document.querySelector('#term-field').innerHTML = '';
-            document.querySelector('#description-field').innerHTML = '';
-        });
 
         modal.style.display = "block";
           
@@ -105,6 +101,7 @@ function getCards(deck, getSpecificCard=0) {
         let cards = cardJSON.data
         let card = cards[getSpecificCard]
         let newCard = new Card(card.attributes.id, card.attributes.term, card.attributes.description)
+        
         document.querySelector("#card-details").innerHTML = newCard.renderCard()
         document.querySelector("#delete-card").addEventListener("click", (e) => deleteCardHandler(e, deck))
 
