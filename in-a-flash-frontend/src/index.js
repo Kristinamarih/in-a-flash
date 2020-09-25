@@ -26,7 +26,6 @@ function getSelectedDeck(e) {
         let deck = Deck.findDeck(id);
         document.querySelector('#deck-info').innerHTML = deck.renderDetails()
         
-        debugger
         if (deck.cards.data.length > 0) {
             getCards(deck)
         }

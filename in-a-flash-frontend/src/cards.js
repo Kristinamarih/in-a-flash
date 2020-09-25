@@ -12,16 +12,16 @@ class Card {
     };
 
     renderCard() {
-        return `<div class="card border-primary mb-3" style="max-width: 30rem;">
-                    <div class="card-header">Card</div>
-                    <div class="card-body">
-                        <h4 class="card-term">${this.term}</h4>
-                        <p class="card-description">${this.description}</p>
+        return `<div class="card border-primary mb-3" style="max-width: 30em;">
+        <div class="card-header">Card</div>
+                    <div class="card-body text-center">
+                        <h4 class="card-title">${this.term}</h4>
+                        <p class="card-text">${this.description}</p>
                     </div>
-                    <div class="text-center">
-                    <button data-id=${this.id} type="button" id="previous-card" class="btn btn-outline-primary">Previous card</button>
-                    <button data-id=${this.id} type="button" id="delete-card" class="btn btn-primary" style="max-width: 5rem;">Delete</button>
-                    <button data-id=${this.id} type="button" id="next-card" class="btn btn-outline-primary">Next card</button>
+                    <div class="btn-group" role="group" style="width: 33% text-align: center">
+                    <button data-id=${this.id} type="button" id="previous-card" class="btn btn-outline-primary">Previous</button>
+                    <button data-id=${this.id} type="button" id="delete-card" class="btn btn-primary">Delete</button>
+                    <button data-id=${this.id} type="button" id="next-card" class="btn btn-outline-primary">Next</button>
                     </div>
                 </div>`
     };
