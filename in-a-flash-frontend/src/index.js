@@ -35,18 +35,19 @@ function getSelectedDeck(e) {
 
         let modal = document.querySelector(".modal");
         let closebtn = document.querySelector("#close")
-
         modal.style.display = "block";
-          
         closebtn.onclick = function() {
           modal.style.display = "none";
         }
-          
         window.onclick = function(e) {
           if (e.target == modal) {
             modal.style.display = "none";
           };
         };
+
+        const toggleCards = document.querySelector('.custom-control-label')
+        toggleCards.addEventListener("click", (e) => toggleHandler(deck, e))
+
       } else if (e.target.className == "btn btn-outline-primary delete-buttons") {
         let id = parseInt(e.target.id.split("-")[2]);
         deleteDeck(id)
@@ -92,6 +93,18 @@ function postDeck(name, category) {
         document.querySelector('#decks-list').innerHTML += newDeckItem.renderDeck()
     });
 };
+
+function toggleHandler(deck, e) {
+    e.preventDefault()
+    cards = []
+    deck.cards.data.forEach(card => {
+        const toggleCard = Card.findCard(card.id)
+        cards.push(toggleCard)
+    })
+    let cardText = document.querySelector(".card-text").innerHTML
+    debugger
+    cards.toggle(cardText)
+}
 
 function getCards(deck, getSpecificCard=0) {
     fetch(`http://localhost:3000/decks/${deck.id}/cards`)

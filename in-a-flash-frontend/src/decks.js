@@ -18,7 +18,12 @@ class Deck {
     };
 
     renderDetails() {
-        return `<h2>${this.name}</h2>
+        return `<div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitch">
+                <label class="custom-control-label" for="customSwitch">Study or play deck!</label>
+                </div>
+                <br>
+            <h2>${this.name}</h2>
                <div id="new-cards-container">
                 <h5>Create New Cards</h5>
                 <form action="http://localhost:3000/decks/${this.id}/cards" id="new-card-form">
