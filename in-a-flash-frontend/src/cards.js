@@ -18,7 +18,7 @@ class Card {
     };
 
     renderCard() {
-        return `<div class="card border-primary mb-3" style="max-width: 30em; min-height: 15em">
+        return `<div id="delete-data-${this.id}" class="card border-primary mb-3" style="max-width: 30em; min-height: 15em">
                 <div class="card-header">Card</div>
                     <div class="card-body text-center">
                         <h4 class="card-title">${this.term}</h4>

@@ -26,9 +26,9 @@ function getSelectedDeck(e) {
         let deck = Deck.findDeck(id);
         document.querySelector('#deck-info').innerHTML = deck.renderDetails()
         
-        if (deck.cards.data.length > 0) {
+        // if (deck.cards.data.length > 0) {
             getCards(deck)
-        }
+        // }
     
         const cardForm = document.querySelector('#new-card-form')
         cardForm.addEventListener("submit", (e) => cardFormHandler(e, id))
@@ -50,6 +50,7 @@ function getSelectedDeck(e) {
 
       } else if (e.target.className == "btn btn-outline-primary delete-buttons") {
         let id = parseInt(e.target.id.split("-")[2]);
+        let deck = Deck.findDeck(id);
         deleteDeck(id)
       };
 }
@@ -65,6 +66,8 @@ function deleteDeck(id) {
     })
     .then(res => console.log(res))
     .catch(err => console.log(`Error with message: ${err}`));
+    let deckDelete = document.querySelector(`#delete-data-${id}`)
+    deckDelete.remove()
 }
 
 function deckFormHandler(e) {
@@ -94,17 +97,17 @@ function postDeck(name, category) {
     });
 };
 
-function toggleHandler(deck, e) {
-    e.preventDefault()
-    cards = []
-    deck.cards.data.forEach(card => {
-        const toggleCard = Card.findCard(card.id)
-        cards.push(toggleCard)
-    })
-    let cardText = document.querySelector(".card-text").innerHTML
-    debugger
-    cards.toggle(cardText)
-}
+// function toggleHandler(deck, e) {
+//     e.preventDefault()
+//     cards = []
+//     deck.cards.data.forEach(card => {
+//         const toggleCard = Card.findCard(card.id)
+//         cards.push(toggleCard)
+//     })
+//     let cardText = document.querySelector(".card-text").innerHTML
+//     debugger
+//     cards.toggle(cardText)
+// }
 
 function getCards(deck, getSpecificCard=0) {
     fetch(`http://localhost:3000/decks/${deck.id}/cards`)
@@ -167,6 +170,8 @@ function deleteCardHandler(e, deck) {
 
 function cardDelete(deck, id) {
     fetch(`http://localhost:3000/decks/${deck.id}/cards/${id}`, { method: 'DELETE' })
+    let cardDelete = document.querySelector(`#delete-data-${id}`)
+    cardDelete.remove()
     // .then(res => {
     //     if (res.ok) {
     //         return res.json();
