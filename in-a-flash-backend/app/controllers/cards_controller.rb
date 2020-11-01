@@ -43,7 +43,7 @@ class CardsController < ApplicationController
     # end
 
     def destroy
-        card = Card.find_by(deck_id: params[:deck_id])
+        card = Card.find_by(id: params[:id])
         card.destroy
     end
 
