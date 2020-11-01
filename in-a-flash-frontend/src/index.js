@@ -172,6 +172,7 @@ function cardDelete(deck, id) {
     fetch(`http://localhost:3000/decks/${deck.id}/cards/${id}`, { method: 'DELETE' })
     let cardDelete = document.querySelector(`#delete-data-${id}`)
     cardDelete.remove()
+    getCards(deck)
     // .then(res => {
     //     if (res.ok) {
     //         return res.json();
