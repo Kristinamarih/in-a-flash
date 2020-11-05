@@ -11,6 +11,8 @@ class Deck {
         return this.all.find(deck => deck.id == id);
     };
 
+    
+
     renderDeck() {
         return `<tr id='delete-data-${this.id}'><td>${this.name}</td><td>${this.category}</td>
         <td><button data-id=${this.id} type="button" id="select-deck-${this.id}" class="btn btn-outline-primary deck-buttons">Select</button></td>

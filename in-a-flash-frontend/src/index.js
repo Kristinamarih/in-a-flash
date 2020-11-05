@@ -7,16 +7,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const deckForm = document.querySelector('#new-deck-form')
     deckForm.addEventListener("submit", (e) => deckFormHandler(e))
 });
+
 const url = 'http://localhost:3000/decks'
 
 function getDecks() {
     fetch(url)
         .then(resp => resp.json())
         .then((decks) => {
+        debugger
+           decks.data.sort((a, b) => (a.attributes.name > b.attributes.name ? 1 : -1))
+           debugger
             decks.data.forEach(deck => {
                 let newDeck = new Deck(deck.id, deck.attributes.name, deck.attributes.category, deck.relationships.cards)
                 document.querySelector('#decks-list').innerHTML += newDeck.renderDeck();
-            });
+            });  
     });
 };
 
