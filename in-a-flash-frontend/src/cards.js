@@ -11,18 +11,18 @@ class Card {
         return this.all.find(card => card.id == id);
     };
 
-    toggleText() {
-        debugger
-        const cardText = this.description
-        cardText.toggle()
-    };
+    // toggleText() {
+    //     debugger
+    //     const cardText = this.description
+    //     cardText.toggle()
+    // };
 
     renderCard() {
         return `<div id="delete-data-${this.id}" class="card border-primary mb-3" style="max-width: 30em; min-height: 15em">
                 <div class="card-header">Card</div>
                     <div class="card-body text-center">
                         <h4 class="card-title">${this.term}</h4>
-                        <p class="card-text" id="card-text">${this.description}</p>
+                        <style><p class="card-text" id="card-text">${this.description}</p></style>
                     </div>
                     <div class="text-align: center">
                         <div class="btn-group" role="group">

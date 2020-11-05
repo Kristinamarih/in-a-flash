@@ -45,7 +45,7 @@ function getSelectedDeck(e) {
           };
         };
 
-        const toggleCards = document.querySelector('.custom-control-label')
+        const toggleCards = document.querySelector('.custom-control-input')
         toggleCards.addEventListener("click", (e) => toggleHandler(deck, e))
 
       } else if (e.target.className == "btn btn-outline-primary delete-buttons") {
@@ -93,20 +93,26 @@ function postDeck(name, category) {
     .then((res) => res.json())
     .then(function(deck) {
         const newDeckItem = new Deck(deck.data.id, deck.data.attributes.name, deck.data.attributes.category)
+        document.querySelector('#name-field').value = ''
+        document.querySelector('#category-field').value = ''
         document.querySelector('#decks-list').innerHTML += newDeckItem.renderDeck()
     });
 };
 
 // function toggleHandler(deck, e) {
 //     e.preventDefault()
-//     cards = []
+//     toggledCards = []
 //     deck.cards.data.forEach(card => {
 //         const toggleCard = Card.findCard(card.id)
-//         cards.push(toggleCard)
+//         toggledCards.push(toggleCard)
+
+//         toggledCards.forEach(c => {
+//         let cardText = document.querySelector("#card-text").innerHTML
+//         debugger
+        
+//         cardText.style.display = "none"
+//         })
 //     })
-//     let cardText = document.querySelector(".card-text").innerHTML
-//     debugger
-//     cards.toggle(cardText)
 // }
 
 function getCards(deck, getSpecificCard=0) {
@@ -158,6 +164,8 @@ function postCard(deck_id, term, description) {
     .then((res) => res.json())
     .then((card) => {
         const newCardItem = new Card(card.data.id, card.data.attributes.term, card.data.attributes.description)
+        document.querySelector('#term-field').value = ''
+        document.querySelector('#description-field').value = ''
         document.querySelector("#card-details").innerHTML = newCardItem.renderCard()
     });
 }
